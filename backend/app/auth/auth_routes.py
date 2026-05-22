@@ -1,87 +1,109 @@
-# Import APIRouter for creating route groups
-from fastapi import APIRouter, HTTPException
+# ======================================================
+# AUTH ROUTES - Kohinoor Jewelry Shop
+# FILE: Kohinoor/backend/app/auth/auth_routes.py
+# ======================================================
 
-# BaseModel is used for request body validation
+from fastapi import APIRouter, Header
 from pydantic import BaseModel
+from typing import Optional
 
-# Import authentication functions from auth_service.py
-from .auth_service import signup_user, login_user
-
-
-# ======================================================
-# CREATE ROUTER OBJECT
-# ======================================================
-
-# APIRouter helps organize routes separately
-router = APIRouter()
+router = APIRouter(prefix="/auth", tags=["Auth"])
 
 
 # ======================================================
-# SIGNUP REQUEST SCHEMA
+# REQUEST MODELS
 # ======================================================
 
-# Defines data required during signup
 class SignupRequest(BaseModel):
-
     username: str
-    email: str
+    email:    str
     password: str
 
-
-# ======================================================
-# LOGIN REQUEST SCHEMA
-# ======================================================
-
-# Defines data required during login
 class LoginRequest(BaseModel):
-
-    email: str
+    email:    str
     password: str
 
 
 # ======================================================
-# SIGNUP ROUTE
+# POST /auth/signup
 # ======================================================
 
-# API Endpoint:
-# POST /signup
 @router.post("/signup")
 def signup(data: SignupRequest):
+    # TODO: uncomment when Sunidhi's DB is ready
+    # from app.auth.auth_service import signup_user
+    # return signup_user(data, db)
 
-    # Call signup logic from auth_service.py
-    result = signup_user(data)
-
-    # If signup fails
-    if result["success"] is False:
-
-        raise HTTPException(
-            status_code=400,
-            detail=result["message"]
-        )
-
-    # Return success response
-    return result
+    return {
+        "success": True,
+        "message": "User registered successfully (dummy - DB not connected yet)",
+        "user": {
+            "username": data.username,
+            "email":    data.email
+        }
+    }
 
 
 # ======================================================
-# LOGIN ROUTE
+# POST /auth/login
 # ======================================================
 
-# API Endpoint:
-# POST /login
 @router.post("/login")
 def login(data: LoginRequest):
+    # TODO: uncomment when Sunidhi's DB is ready
+    # from app.auth.auth_service import login_user
+    # return login_user(data, db)
 
-    # Call login logic from auth_service.py
-    result = login_user(data)
+    return {
+        "success": True,
+        "message": "Login successful (dummy - DB not connected yet)",
+        "token":   "placeholder_token_connect_db_to_get_real_jwt",
+        "user": {
+            "email": data.email
+        }
+    }
 
-    # If login fails
-    if result["success"] is False:
 
-        raise HTTPException(
-            status_code=401,
-            detail=result["message"]
-        )
+# ======================================================
+# GET /auth/me
+# Returns current logged in user info from token
+# ======================================================
 
-    # Return success response
-    return result
+@router.get("/me")
+def get_me(authorization: Optional[str] = Header(None)):
+    # TODO: uncomment when DB + JWT is ready
+    # token = authorization.replace("Bearer ", "")
+    # from app.auth.jwt_handler import decode_token
+    # user_data = decode_token(token)
+    # fetch user from DB using user_data["user_id"]
+
+    if not authorization:
+        return {
+            "success": False,
+            "message": "No token provided. Send Authorization: Bearer <token> in header."
+        }
+
+    return {
+        "success": True,
+        "message": "User profile (dummy - DB not connected yet)",
+        "user": {
+            "id":       "user_001",
+            "username": "anjali",
+            "email":    "anjali@example.com",
+            "role":     "customer"
+        }
+    }
+
+
+# ======================================================
+# POST /auth/logout
+# ======================================================
+
+@router.post("/logout")
+def logout(authorization: Optional[str] = Header(None)):
+    # TODO: implement token blacklist when DB is ready
+
+    return {
+        "success": True,
+        "message": "Logged out successfully"
+    }
