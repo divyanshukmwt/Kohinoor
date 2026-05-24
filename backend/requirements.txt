@@ -1,14 +1,26 @@
-annotated-doc==0.0.4
-annotated-types==0.7.0
-anyio==4.13.0
-click==8.4.0
-colorama==0.4.6
-fastapi==0.136.1
-h11==0.16.0
-idna==3.15
-pydantic==2.13.4
-pydantic_core==2.46.4
-starlette==1.0.0
-typing-inspection==0.4.2
-typing_extensions==4.15.0
-uvicorn==0.47.0
+# Éclat Platform — Backend Dependencies
+
+fastapi==0.115.5
+uvicorn[standard]==0.32.1
+python-multipart==0.0.12
+
+# Database
+sqlalchemy==2.0.36
+psycopg2-binary==2.9.10
+alembic==1.14.0
+
+# Environment
+python-dotenv==1.0.1
+
+# AI
+google-generativeai==0.8.3
+
+# Vector DB
+pinecone==5.4.2
+
+# Validation
+pydantic==2.10.3
+email-validator==2.2.0
+
+# HTTP
+httpx==0.28.1

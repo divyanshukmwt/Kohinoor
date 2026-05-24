@@ -1,0 +1,1 @@
+"""Éclat Platform — Backend"""

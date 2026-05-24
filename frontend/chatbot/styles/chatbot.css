@@ -1,0 +1,723 @@
+/* ============================================
+   Éclat — Luxury Jewellery Concierge Styles
+   Design: Cinematic · Editorial · Luxurious
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap');
+
+/* ---- CSS Variables ---- */
+:root {
+  --eclat-gold: #C9A84C;
+  --eclat-gold-light: #E8D5A3;
+  --eclat-gold-dim: rgba(201, 168, 76, 0.15);
+  --eclat-ivory: #F8F5F0;
+  --eclat-ivory-deep: #F0EBE3;
+  --eclat-black: #0A0A0A;
+  --eclat-charcoal: #1A1A1A;
+  --eclat-graphite: #2C2C2C;
+  --eclat-stone: #888888;
+  --eclat-mist: rgba(255, 255, 255, 0.06);
+  --eclat-border: rgba(201, 168, 76, 0.2);
+  --eclat-border-light: rgba(201, 168, 76, 0.1);
+  --eclat-shadow: 0 32px 80px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.2);
+  --eclat-font-display: 'Bodoni Moda', Georgia, serif;
+  --eclat-font-body: 'Inter', -apple-system, sans-serif;
+  --eclat-radius: 0px;
+  --eclat-window-w: 420px;
+  --eclat-window-h: 680px;
+}
+
+/* ---- Widget Container ---- */
+.eclat-widget {
+  position: fixed;
+  bottom: 28px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 16px;
+  font-family: var(--eclat-font-body);
+}
+
+.eclat-widget--right { right: 28px; }
+.eclat-widget--left  { left: 28px; align-items: flex-start; }
+
+/* ---- Floating Button ---- */
+.eclat-floating-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 22px;
+  background: var(--eclat-black);
+  border: 1px solid var(--eclat-gold);
+  color: var(--eclat-gold);
+  cursor: pointer;
+  font-family: var(--eclat-font-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  outline: none;
+  position: relative;
+  backdrop-filter: blur(12px);
+}
+
+.eclat-floating-btn:hover {
+  background: var(--eclat-gold);
+  color: var(--eclat-black);
+}
+
+.eclat-floating-btn--open {
+  padding: 14px 18px;
+  background: var(--eclat-charcoal);
+}
+
+.eclat-floating-gem { font-size: 14px; }
+.eclat-floating-label { letter-spacing: 0.14em; }
+.eclat-floating-close { font-size: 13px; }
+
+.eclat-floating-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 7px;
+  height: 7px;
+  background: var(--eclat-gold);
+  border-radius: 50%;
+  animation: eclatPulse 2s ease-in-out infinite;
+}
+
+@keyframes eclatPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+/* ---- Chat Window ---- */
+.eclat-chat-window {
+  width: var(--eclat-window-w);
+  height: var(--eclat-window-h);
+  background: var(--eclat-charcoal);
+  border: 1px solid var(--eclat-border);
+  box-shadow: var(--eclat-shadow);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.eclat-window-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--eclat-gold), transparent);
+}
+
+/* ---- Chat Header ---- */
+.eclat-chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  background: var(--eclat-black);
+  border-bottom: 1px solid var(--eclat-border-light);
+  flex-shrink: 0;
+}
+
+.eclat-header-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.eclat-header-gem {
+  color: var(--eclat-gold);
+  font-size: 18px;
+  line-height: 1;
+}
+
+.eclat-header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.eclat-header-name {
+  font-family: var(--eclat-font-display);
+  font-size: 17px;
+  color: var(--eclat-ivory);
+  letter-spacing: 0.06em;
+  font-weight: 400;
+}
+
+.eclat-header-subtitle {
+  font-size: 10px;
+  color: var(--eclat-stone);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.eclat-header-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  justify-content: center;
+}
+
+.eclat-status-dot {
+  width: 6px;
+  height: 6px;
+  background: #6BCB77;
+  border-radius: 50%;
+  animation: eclatPulse 3s ease-in-out infinite;
+}
+
+.eclat-status-label {
+  font-size: 10px;
+  color: var(--eclat-stone);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.eclat-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.eclat-header-btn {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--eclat-border-light);
+  color: var(--eclat-stone);
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.25s ease;
+}
+
+.eclat-header-btn:hover {
+  border-color: var(--eclat-gold);
+  color: var(--eclat-gold);
+}
+
+/* ---- Progress Bar ---- */
+.eclat-progress-bar {
+  height: 1px;
+  background: var(--eclat-graphite);
+  flex-shrink: 0;
+}
+
+.eclat-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--eclat-gold-dim), var(--eclat-gold));
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---- Messages Container ---- */
+.eclat-messages-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--eclat-graphite) transparent;
+}
+
+.eclat-messages-container::-webkit-scrollbar {
+  width: 3px;
+}
+
+.eclat-messages-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.eclat-messages-container::-webkit-scrollbar-thumb {
+  background: var(--eclat-graphite);
+}
+
+/* ---- Message ---- */
+.eclat-message {
+  display: flex;
+  gap: 12px;
+  opacity: 0; /* initial state for GSAP */
+}
+
+.eclat-message--assistant { flex-direction: row; }
+.eclat-message--user      { flex-direction: row-reverse; }
+
+.eclat-message-avatar {
+  width: 30px;
+  height: 30px;
+  background: var(--eclat-black);
+  border: 1px solid var(--eclat-gold);
+  color: var(--eclat-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--eclat-font-display);
+  font-size: 13px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.eclat-message-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: calc(100% - 50px);
+  width: 100%;
+}
+
+/* ---- Bubbles ---- */
+.eclat-bubble {
+  padding: 14px 18px;
+  font-size: 13.5px;
+  line-height: 1.75;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+}
+
+.eclat-bubble--assistant {
+  background: var(--eclat-graphite);
+  color: var(--eclat-ivory);
+  border: 1px solid var(--eclat-border-light);
+  border-top-left-radius: 0;
+}
+
+.eclat-bubble--user {
+  background: var(--eclat-gold-dim);
+  border: 1px solid var(--eclat-border);
+  color: var(--eclat-gold-light);
+  align-self: flex-end;
+  text-align: right;
+}
+
+/* ---- Typing Indicator ---- */
+.eclat-typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 14px 18px;
+  background: var(--eclat-graphite);
+  border: 1px solid var(--eclat-border-light);
+  width: fit-content;
+}
+
+.eclat-typing-dot {
+  width: 5px;
+  height: 5px;
+  background: var(--eclat-gold);
+  border-radius: 50%;
+  animation: eclatTyping 1.2s ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+@keyframes eclatTyping {
+  0%, 60%, 100% { opacity: 0.25; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-4px); }
+}
+
+/* ---- Capsule Selector ---- */
+.eclat-capsule-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.eclat-capsule {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 15px;
+  background: transparent;
+  border: 1px solid var(--eclat-border);
+  color: var(--eclat-ivory);
+  cursor: pointer;
+  font-family: var(--eclat-font-body);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  transition: all 0.25s ease;
+  opacity: 0; /* GSAP initial */
+}
+
+.eclat-capsule:hover:not(.eclat-capsule--disabled) {
+  background: var(--eclat-gold-dim);
+  border-color: var(--eclat-gold);
+  color: var(--eclat-gold-light);
+}
+
+.eclat-capsule--disabled {
+  opacity: 0.35 !important;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.eclat-capsule-icon {
+  color: var(--eclat-gold);
+  font-size: 10px;
+}
+
+.eclat-capsule-label {
+  letter-spacing: 0.1em;
+}
+
+/* ---- Recommendations ---- */
+.eclat-recommendations {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.eclat-recommendations-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--eclat-stone);
+}
+
+.eclat-rec-line {
+  flex: 1;
+  height: 1px;
+  background: var(--eclat-border-light);
+}
+
+.eclat-recommendations-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ---- Product Card ---- */
+.eclat-product-card {
+  background: var(--eclat-black);
+  border: 1px solid var(--eclat-border-light);
+  overflow: hidden;
+  opacity: 0; /* GSAP initial */
+  transition: border-color 0.3s ease;
+}
+
+.eclat-product-card:hover {
+  border-color: var(--eclat-border);
+}
+
+.eclat-product-image-wrap {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+  background: var(--eclat-graphite);
+}
+
+.eclat-product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.eclat-product-card:hover .eclat-product-image {
+  transform: scale(1.03);
+}
+
+.eclat-product-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(10, 10, 10, 0.7));
+}
+
+.eclat-product-image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--eclat-gold);
+  font-size: 32px;
+  opacity: 0.3;
+}
+
+.eclat-product-info {
+  padding: 16px 18px 12px;
+}
+
+.eclat-product-category {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--eclat-gold);
+  margin-bottom: 6px;
+}
+
+.eclat-product-name {
+  font-family: var(--eclat-font-display);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--eclat-ivory);
+  margin: 0 0 8px;
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+}
+
+.eclat-product-description {
+  font-size: 12px;
+  color: var(--eclat-stone);
+  line-height: 1.65;
+  margin: 0 0 10px;
+  font-weight: 300;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.eclat-product-price {
+  font-family: var(--eclat-font-display);
+  font-size: 17px;
+  color: var(--eclat-gold);
+  letter-spacing: 0.04em;
+  margin-bottom: 10px;
+}
+
+.eclat-product-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.eclat-product-tag {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--eclat-stone);
+  border: 1px solid var(--eclat-border-light);
+  padding: 3px 8px;
+}
+
+/* ---- Product Actions ---- */
+.eclat-product-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  border-top: 1px solid var(--eclat-border-light);
+}
+
+.eclat-btn {
+  padding: 11px 10px;
+  font-family: var(--eclat-font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  border: none;
+}
+
+.eclat-btn--primary {
+  background: var(--eclat-gold);
+  color: var(--eclat-black);
+}
+.eclat-btn--primary:hover {
+  background: var(--eclat-gold-light);
+}
+
+.eclat-btn--secondary {
+  background: var(--eclat-graphite);
+  color: var(--eclat-ivory);
+  border: 1px solid var(--eclat-border-light);
+}
+.eclat-btn--secondary:hover {
+  background: var(--eclat-charcoal);
+  border-color: var(--eclat-gold);
+  color: var(--eclat-gold);
+}
+
+.eclat-btn--ghost {
+  grid-column: 1 / -1;
+  background: transparent;
+  color: var(--eclat-stone);
+  border-top: 1px solid var(--eclat-border-light);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+.eclat-btn--ghost:hover:not(:disabled) {
+  color: var(--eclat-gold);
+  background: var(--eclat-gold-dim);
+}
+
+.eclat-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ---- Chat Input ---- */
+.eclat-chat-input-wrap {
+  border-top: 1px solid var(--eclat-border-light);
+  padding: 16px 20px;
+  background: var(--eclat-black);
+  flex-shrink: 0;
+}
+
+.eclat-input-container {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid var(--eclat-border);
+  background: var(--eclat-graphite);
+  transition: border-color 0.25s ease;
+}
+
+.eclat-input-container:focus-within {
+  border-color: var(--eclat-gold);
+}
+
+.eclat-chat-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 13px 16px;
+  color: var(--eclat-ivory);
+  font-family: var(--eclat-font-body);
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+
+.eclat-chat-input::placeholder {
+  color: var(--eclat-stone);
+  font-style: italic;
+  font-size: 12px;
+}
+
+.eclat-input-send {
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--eclat-gold);
+  border: none;
+  color: var(--eclat-black);
+  cursor: pointer;
+  transition: background 0.25s ease;
+  flex-shrink: 0;
+}
+
+.eclat-input-send:hover:not(:disabled) {
+  background: var(--eclat-gold-light);
+}
+
+.eclat-input-send:disabled {
+  background: var(--eclat-graphite);
+  color: var(--eclat-stone);
+  cursor: not-allowed;
+}
+
+.eclat-input-hint {
+  margin-top: 8px;
+  font-size: 9px;
+  color: var(--eclat-stone);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+  opacity: 0.6;
+}
+
+.eclat-input-placeholder {
+  border-top: 1px solid var(--eclat-border-light);
+  padding: 16px 20px;
+  background: var(--eclat-black);
+  font-size: 11px;
+  color: var(--eclat-stone);
+  letter-spacing: 0.1em;
+  text-align: center;
+  font-style: italic;
+  flex-shrink: 0;
+}
+
+/* ---- Cart Toast ---- */
+.eclat-cart-toast {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 20px;
+  background: var(--eclat-black);
+  border: 1px solid var(--eclat-gold);
+  color: var(--eclat-gold-light);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  animation: eclatToastIn 0.4s ease forwards;
+}
+
+.eclat-cart-icon {
+  color: var(--eclat-gold);
+  font-size: 11px;
+}
+
+@keyframes eclatToastIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Mobile ---- */
+@media (max-width: 480px) {
+  :root {
+    --eclat-window-w: 100vw;
+    --eclat-window-h: 90svh;
+  }
+
+  .eclat-widget {
+    bottom: 0;
+    right: 0 !important;
+    left: 0 !important;
+    align-items: stretch;
+  }
+
+  .eclat-widget--right,
+  .eclat-widget--left {
+    right: 0;
+    left: 0;
+  }
+
+  .eclat-chat-window {
+    width: 100%;
+    height: var(--eclat-window-h);
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+  }
+
+  .eclat-floating-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: auto;
+  }
+
+  .eclat-product-image-wrap {
+    height: 150px;
+  }
+}
+
+/* ---- Scrollbar (Firefox) ---- */
+.eclat-messages-container {
+  scrollbar-width: thin;
+  scrollbar-color: var(--eclat-graphite) transparent;
+}

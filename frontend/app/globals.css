@@ -1,0 +1,313 @@
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────
+   BASE RESETS & CUSTOM PROPERTIES
+───────────────────────────────────────────── */
+
+:root {
+  --color-ivory: #FCFAF2;
+  --color-gold: #E2C9A1;
+  --color-gold-deep: #735c00;
+  --color-black: #121212;
+  --color-surface: #fcf9f8;
+  --color-text: #1c1b1b;
+  --font-bodoni: 'Bodoni Moda', serif;
+  --font-inter: 'Inter', sans-serif;
+  --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-slow: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  background-color: var(--color-ivory);
+  color: var(--color-text);
+  font-family: var(--font-inter);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: var(--color-gold);
+  color: var(--color-black);
+}
+
+/* ─────────────────────────────────────────────
+   TYPOGRAPHY
+───────────────────────────────────────────── */
+
+.font-bodoni {
+  font-family: var(--font-bodoni);
+}
+
+.font-inter {
+  font-family: var(--font-inter);
+}
+
+/* ─────────────────────────────────────────────
+   GLASS PANEL
+───────────────────────────────────────────── */
+
+.glass-panel {
+  background: rgba(252, 250, 242, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(226, 201, 161, 0.2);
+}
+
+.glass-panel-dark {
+  background: rgba(18, 18, 18, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(226, 201, 161, 0.15);
+}
+
+/* ─────────────────────────────────────────────
+   CLIP PATHS
+───────────────────────────────────────────── */
+
+.clip-asymmetric {
+  clip-path: polygon(0 0, 100% 5%, 100% 100%, 0 95%);
+}
+
+.clip-diagonal-top {
+  clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
+}
+
+.clip-diagonal-bottom {
+  clip-path: polygon(0 8%, 100% 0, 100% 100%, 0 100%);
+}
+
+/* ─────────────────────────────────────────────
+   SVG DRAW PATH
+───────────────────────────────────────────── */
+
+.svg-draw-path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+.svg-draw-path.animated {
+  animation: drawPath 2s ease forwards;
+}
+
+@keyframes drawPath {
+  to { stroke-dashoffset: 0; }
+}
+
+/* ─────────────────────────────────────────────
+   NAVBAR SCROLL STATE
+───────────────────────────────────────────── */
+
+.nav-scrolled {
+  background: rgba(252, 250, 242, 0.92) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom-color: rgba(226, 201, 161, 0.2) !important;
+}
+
+/* ─────────────────────────────────────────────
+   TRANSITIONS
+───────────────────────────────────────────── */
+
+.transition-luxury {
+  transition: all 0.8s var(--ease-luxury);
+}
+
+.transition-slow {
+  transition: all 1.2s var(--ease-slow);
+}
+
+.hover-lift {
+  transition: transform 0.6s var(--ease-luxury);
+}
+.hover-lift:hover {
+  transform: translateY(-8px);
+}
+
+/* ─────────────────────────────────────────────
+   PRODUCT CARD
+───────────────────────────────────────────── */
+
+.product-card {
+  background: rgba(246, 243, 242, 0.3);
+  transition: all 0.5s var(--ease-luxury);
+}
+
+.product-card:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.05);
+}
+
+.product-image {
+  transition: transform 0.9s var(--ease-luxury);
+}
+
+/* ─────────────────────────────────────────────
+   BUTTON STYLES
+───────────────────────────────────────────── */
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px;
+  font-family: var(--font-inter);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid var(--color-black);
+  color: var(--color-black);
+  background: transparent;
+  transition: all 0.5s var(--ease-luxury);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--color-black);
+  transform: translateX(-101%);
+  transition: transform 0.5s var(--ease-luxury);
+}
+
+.btn-primary:hover::before {
+  transform: translateX(0);
+}
+
+.btn-primary:hover {
+  color: var(--color-ivory);
+}
+
+.btn-primary span {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-inter);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+}
+
+.btn-ghost::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.4s var(--ease-luxury);
+}
+
+.btn-ghost:hover::after {
+  width: 100%;
+}
+
+/* ─────────────────────────────────────────────
+   INFINITE GALLERY TICKER
+───────────────────────────────────────────── */
+
+.infinite-ticker {
+  display: flex;
+  gap: 2px;
+  will-change: transform;
+}
+
+/* ─────────────────────────────────────────────
+   CART DRAWER OVERLAY
+───────────────────────────────────────────── */
+
+.drawer-overlay {
+  background: rgba(18, 18, 18, 0.4);
+  backdrop-filter: blur(4px);
+}
+
+/* ─────────────────────────────────────────────
+   FORM INPUTS
+───────────────────────────────────────────── */
+
+.input-luxury {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(18, 18, 18, 0.2);
+  padding: 12px 0;
+  font-family: var(--font-inter);
+  font-size: 16px;
+  color: var(--color-text);
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.input-luxury:focus {
+  border-bottom-color: var(--color-gold-deep);
+}
+
+.input-luxury::placeholder {
+  color: rgba(18, 18, 18, 0.35);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ─────────────────────────────────────────────
+   SCROLL REVEAL INITIAL STATE
+───────────────────────────────────────────── */
+
+.gs-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+/* ─────────────────────────────────────────────
+   JOURNAL CARD
+───────────────────────────────────────────── */
+
+.journal-card-image {
+  transition: transform 0.9s var(--ease-luxury);
+}
+
+.journal-card:hover .journal-card-image {
+  transform: scale(1.04);
+}
+
+/* ─────────────────────────────────────────────
+   DECORATIVE LINES
+───────────────────────────────────────────── */
+
+.gold-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+}
+
+.gold-line-v {
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--color-gold), transparent);
+}

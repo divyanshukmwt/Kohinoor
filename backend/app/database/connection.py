@@ -1,37 +1,45 @@
+"""
+Database Connection — Éclat Platform
+SQLAlchemy engine, session factory, and dependency injection.
+"""
+
 import os
-from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from pathlib import Path
+from sqlalchemy.pool import QueuePool
+from dotenv import load_dotenv
 
-# ======================================================
-# DATABASE CONNECTION - Kohinoor Jewelry Shop
-# FILE: Kohinoor/backend/app/database/connection.py
-# PURPOSE: PostgreSQL se connect karna aur session banana
-# ======================================================
+load_dotenv()
 
-# .env file ka path dhundho — teen folders upar jaake
-env_path = Path(__file__).resolve().parents[2] / ".env"
-load_dotenv(dotenv_path=env_path)
+DATABASE_URL = os.getenv(
+    "DATABASE_URL",
+    "postgresql://eclat_user:eclat_pass@localhost:5432/eclat_db"
+)
 
-# DATABASE_URL .env file se lo
-# Format: postgresql://username:password@localhost/database_name
-DATABASE_URL = os.getenv("DATABASE_URL")
+engine = create_engine(
+    DATABASE_URL,
+    poolclass=    QueuePool,
+    pool_size=    10,
+    max_overflow= 20,
+    pool_pre_ping=True,
+    pool_recycle= 3600,
+    echo=         os.getenv("DB_ECHO", "false").lower() == "true",
+)
 
-# SQLAlchemy engine banao — yeh PostgreSQL se baat karta hai
-engine = create_engine(DATABASE_URL)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# Session factory — har request ke liye ek session banega
-SessionLocal = sessionmaker(bind=engine)
 
-# ======================================================
-# get_db()
-# FastAPI dependency injection ke liye
-# Har API route mein DB session deta hai
-# ======================================================
 def get_db():
+    """FastAPI dependency: yields a DB session per request."""
     db = SessionLocal()
     try:
-        yield db      # session do
+        yield db
     finally:
-        db.close()    # kaam khatam hone ke baad band karo
+        db.close()
+
+
+def create_tables():
+    """Create all ORM-defined tables (idempotent)."""
+    from app.database.models import Base
+    Base.metadata.create_all(bind=engine)
+    print("✅ Database tables ready")
