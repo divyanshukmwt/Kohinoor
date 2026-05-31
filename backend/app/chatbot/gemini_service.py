@@ -9,7 +9,8 @@ import json
 import re
 from typing import Optional
 
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 
@@ -37,8 +38,7 @@ def _get_client():
     """Lazy-initialize Gemini client."""
     if not GEMINI_API_KEY:
         return None
-    genai.configure(api_key=GEMINI_API_KEY)
-    return genai.GenerativeModel("gemini-1.5-flash")
+    return genai.Client(api_key=GEMINI_API_KEY)
 
 
 # ─────────────────────────────────────────────
@@ -46,11 +46,6 @@ def _get_client():
 # ─────────────────────────────────────────────
 
 def extract_semantic_query(selections: dict, conversational_query: str = "") -> dict:
-    """
-    Given user flow selections + optional free-text, generate:
-    - embeddingQuery: rich description for Pinecone vector search
-    - filters: structured metadata filters
-    """
     client = _get_client()
     if not client:
         return _fallback_semantic_query(selections, conversational_query)
@@ -79,15 +74,15 @@ Return ONLY a valid JSON object with this exact structure (no markdown, no expla
 }}"""
 
     try:
-        response = client.generate_content(
-            prompt,
-            generation_config=genai.types.GenerationConfig(
+        response = client.models.generate_content(
+            model="gemini-1.5-flash",
+            contents=prompt,
+            config=types.GenerateContentConfig(
                 temperature=0.3,
                 max_output_tokens=512,
             )
         )
         raw = response.text.strip()
-        # Strip markdown fences if present
         raw = re.sub(r"```json|```", "", raw).strip()
         return json.loads(raw)
     except Exception as e:
@@ -96,7 +91,6 @@ Return ONLY a valid JSON object with this exact structure (no markdown, no expla
 
 
 def _fallback_semantic_query(selections: dict, conversational_query: str = "") -> dict:
-    """Deterministic fallback when Gemini is unavailable."""
     parts = []
     filters: dict = {}
 
@@ -120,7 +114,6 @@ def _fallback_semantic_query(selections: dict, conversational_query: str = "") -
     if style:    filters["styleTags"] = [style.lower()]
     if purpose:  filters["occasions"] = [purpose.lower()]
 
-    # Parse budget
     BUDGET_MAP = {
         "under_5k":  (0, 5000),
         "5k_20k":    (5000, 20000),
@@ -146,33 +139,30 @@ def generate_conversational_response(
     conversation_history: list,
     system_context: Optional[str] = None
 ) -> str:
-    """Generate an Éclat persona response for the chatbot."""
     client = _get_client()
     if not client:
         return _fallback_chat_response(conversation_history)
 
     system = system_context or ECLAT_PERSONA
 
-    # Build chat with history
-    chat = client.start_chat(history=[])
     try:
-        # Inject persona + history
-        messages = [{"role": "user", "parts": [system]}]
-        messages.append({"role": "model", "parts": ["Understood. I am Éclat, your personal jewellery concierge."]})
+        contents = [{"role": "user", "parts": [{"text": system}]},
+                    {"role": "model", "parts": [{"text": "Understood. I am Éclat, your personal jewellery concierge."}]}]
 
         for msg in conversation_history[:-1]:
             role = "model" if msg["role"] == "assistant" else "user"
-            messages.append({"role": role, "parts": [msg["content"]]})
+            contents.append({"role": role, "parts": [{"text": msg["content"]}]})
 
         last_user = next(
             (m["content"] for m in reversed(conversation_history) if m["role"] == "user"),
             ""
         )
+        contents.append({"role": "user", "parts": [{"text": last_user}]})
 
-        response = client.generate_content(
-            [{"role": m["role"], "parts": m["parts"]} for m in messages]
-            + [{"role": "user", "parts": [last_user]}],
-            generation_config=genai.types.GenerationConfig(
+        response = client.models.generate_content(
+            model="gemini-1.5-flash",
+            contents=contents,
+            config=types.GenerateContentConfig(
                 temperature=0.85,
                 max_output_tokens=512,
             )
@@ -193,8 +183,7 @@ def _fallback_chat_response(history: list) -> str:
 
 
 # ─────────────────────────────────────────────
-# EMBEDDING (for Pinecone upsert)
-# Uses Gemini text-embedding-004 (768-dim)
+# EMBEDDING
 # ─────────────────────────────────────────────
 
 def generate_embedding(text: str) -> list:
@@ -203,23 +192,21 @@ def generate_embedding(text: str) -> list:
         return _mock_embedding(text)
 
     try:
-        genai.configure(api_key=GEMINI_API_KEY)
-        result = genai.embed_content(
+        client = genai.Client(api_key=GEMINI_API_KEY)
+        result = client.models.embed_content(
             model="models/text-embedding-004",
-            content=text,
-            task_type="retrieval_document",
+            contents=text,
         )
-        return result["embedding"]
+        return result.embeddings[0].values
     except Exception as e:
         print(f"[Gemini] Embedding error: {e}")
         return _mock_embedding(text)
 
 
 def _mock_embedding(text: str) -> list:
-    """Deterministic mock embedding for dev without API key."""
     import hashlib
-    seed = int(hashlib.md5(text.encode()).hexdigest(), 16)
     import random
+    seed = int(hashlib.md5(text.encode()).hexdigest(), 16)
     rng = random.Random(seed)
     raw = [rng.gauss(0, 1) for _ in range(768)]
     norm = (sum(x**2 for x in raw) ** 0.5) or 1
