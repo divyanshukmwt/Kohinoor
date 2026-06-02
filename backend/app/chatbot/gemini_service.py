@@ -9,7 +9,7 @@ import json
 import re
 from typing import Optional
 
-from google import genai
+import google.generativeai as genai
 from google.genai import types
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
