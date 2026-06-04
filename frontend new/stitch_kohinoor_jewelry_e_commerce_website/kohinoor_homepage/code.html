@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KOHINOOR | Timeless Jewelry Heritage</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .jewelry-gradient-overlay {
+            background: linear-gradient(to right, rgba(29, 27, 22, 0.8) 0%, rgba(29, 27, 22, 0.4) 50%, rgba(29, 27, 22, 0) 100%);
+        }
+    </style>
+<!-- Include Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error": "#ba1a1a",
+                    "on-primary-container": "#ff7b7f",
+                    "primary-fixed": "#ffdad9",
+                    "on-error": "#ffffff",
+                    "secondary-fixed": "#ffddb2",
+                    "primary-fixed-dim": "#ffb3b2",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#7a0019",
+                    "on-tertiary-fixed": "#291806",
+                    "background": "#fff8f0",
+                    "surface-tint": "#ae2e39",
+                    "on-secondary-container": "#785a2d",
+                    "on-primary-fixed": "#410009",
+                    "tertiary": "#33210e",
+                    "on-surface": "#1d1b16",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed-variant": "#5d4218",
+                    "surface-variant": "#e8e2d9",
+                    "secondary-fixed-dim": "#e8c08b",
+                    "on-surface-variant": "#584141",
+                    "surface": "#fff8f0",
+                    "tertiary-fixed-dim": "#e1c1a4",
+                    "outline": "#8c7070",
+                    "surface-container-low": "#f9f3ea",
+                    "secondary": "#77592d",
+                    "surface-container-highest": "#e8e2d9",
+                    "on-background": "#1d1b16",
+                    "primary": "#51000d",
+                    "inverse-on-surface": "#f6f0e7",
+                    "surface-dim": "#dfd9d1",
+                    "surface-container-high": "#ede7df",
+                    "on-primary-fixed-variant": "#8d1324",
+                    "error-container": "#ffdad6",
+                    "surface-bright": "#fff8f0",
+                    "secondary-container": "#fdd39c",
+                    "on-tertiary-container": "#bd9f84",
+                    "inverse-surface": "#33302b",
+                    "tertiary-container": "#4b3621",
+                    "on-tertiary-fixed-variant": "#59422d",
+                    "on-secondary-fixed": "#291800",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-primary": "#ffb3b2",
+                    "outline-variant": "#e0bfbe",
+                    "on-tertiary": "#ffffff",
+                    "surface-container": "#f3ede4",
+                    "tertiary-fixed": "#ffdcbf"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "gutter-desktop": "24px",
+                    "section-v": "64px",
+                    "base": "8px",
+                    "max-width": "1280px",
+                    "margin-desktop": "auto",
+                    "margin-mobile": "20px"
+            },
+            "fontFamily": {
+                    "display-lg-mobile": ["Playfair Display"],
+                    "body-md": ["Manrope"],
+                    "headline-lg": ["Playfair Display"],
+                    "button": ["Manrope"],
+                    "label-md": ["Manrope"],
+                    "headline-md": ["Playfair Display"],
+                    "body-lg": ["Manrope"],
+                    "display-lg": ["Playfair Display"]
+            },
+            "fontSize": {
+                    "display-lg-mobile": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "button": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "display-lg": ["56px", {"lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-secondary-container">
+<!-- Announcement Bar -->
+<section class="bg-primary-container text-white py-2 px-margin-mobile text-center">
+<p class="font-label-md text-label-md tracking-widest">FREE SHIPPING ON ALL ORDERS ABOVE ₹799</p>
+</section>
+<!-- TopAppBar & Sticky Nav -->
+<header class="sticky top-0 z-50 flex justify-between items-center px-margin-mobile md:px-gutter-desktop h-16 w-full bg-surface border-b border-outline-variant shadow-[0_40px_40px_rgba(43,27,23,0.05)]">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform" data-icon="menu" onclick="toggleDrawer()">menu</button>
+<a class="font-display-lg text-headline-md text-primary tracking-widest" href="index.html">KOHINOOR</a>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-label-md text-label-md text-primary border-b-2 border-outline hover:text-primary transition-colors duration-300" href="listing.html">New Arrivals</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="listing.html">Necklaces</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="listing.html">Earrings</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="listing.html">Rings</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform" data-icon="search" onclick="toggleSearch()">search</button>
+<button class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform relative" data-icon="shopping_bag" onclick="toggleCart()">
+                shopping_bag
+                <span class="absolute -top-1 -right-1 bg-primary text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">2</span>
+</button>
+</div>
+</header>
+<!-- Navigation Drawer (Sidebar) -->
+<div class="fixed inset-0 bg-black/40 z-[55] hidden transition-opacity duration-300" id="drawer-overlay" onclick="toggleDrawer()"></div>
+<aside class="fixed inset-y-0 left-0 z-[60] flex flex-col h-full w-80 bg-surface shadow-2xl -translate-x-full transition-transform duration-300 ease-in-out" id="nav-drawer">
+<div class="p-6 border-b border-outline-variant flex justify-between items-center">
+<span class="font-display-lg text-headline-md text-primary">KOHINOOR</span>
+<button class="material-symbols-outlined" data-icon="close" onclick="toggleDrawer()">close</button>
+</div>
+<div class="flex flex-col py-4 overflow-y-auto">
+<a class="flex items-center gap-4 bg-secondary-container text-on-secondary-container rounded-full mx-2 px-4 py-3 transition-all duration-300 ease-in-out" href="listing.html">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-body-lg text-body-lg">New Arrivals</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant mx-2 px-4 py-3 hover:bg-surface-variant rounded-full transition-all" href="listing.html">
+<span class="material-symbols-outlined" data-icon="diamond">diamond</span>
+<span class="font-body-lg text-body-lg">Necklaces</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant mx-2 px-4 py-3 hover:bg-surface-variant rounded-full transition-all" href="listing.html">
+<span class="material-symbols-outlined" data-icon="auto_fix_high">auto_fix_high</span>
+<span class="font-body-lg text-body-lg">Earrings</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant mx-2 px-4 py-3 hover:bg-surface-variant rounded-full transition-all" href="listing.html">
+<span class="material-symbols-outlined" data-icon="adjust">adjust</span>
+<span class="font-body-lg text-body-lg">Rings</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant mx-2 px-4 py-3 hover:bg-surface-variant rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="verified">verified</span>
+<span class="font-body-lg text-body-lg">Care Guide</span>
+</a>
+</div>
+</aside>
+<!-- Search Overlay -->
+<div class="fixed inset-0 bg-surface/95 z-[70] hidden flex-col p-6 transition-all" id="search-overlay">
+<div class="flex justify-between items-center mb-12">
+<span class="font-display-lg text-headline-md text-primary">SEARCH</span>
+<button class="material-symbols-outlined text-3xl" data-icon="close" onclick="toggleSearch()">close</button>
+</div>
+<div class="max-w-2xl mx-auto w-full">
+<input class="w-full bg-transparent border-b-2 border-outline py-4 text-2xl focus:outline-none focus:border-primary transition-colors font-display-lg" placeholder="Search for collections, stones, or styles..." type="text"/>
+<div class="mt-8">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mb-4">Popular Searches</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-4 py-2 bg-surface-container rounded-full text-sm cursor-pointer hover:bg-secondary-container transition-colors">Oxidized Earrings</span>
+<span class="px-4 py-2 bg-surface-container rounded-full text-sm cursor-pointer hover:bg-secondary-container transition-colors">Gold Plated Rings</span>
+<span class="px-4 py-2 bg-surface-container rounded-full text-sm cursor-pointer hover:bg-secondary-container transition-colors">Boho Collection</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Cart Sidebar -->
+<div class="fixed inset-0 bg-black/40 z-[70] hidden" id="cart-overlay" onclick="toggleCart()"></div>
+<aside class="fixed inset-y-0 right-0 z-[80] w-full md:w-96 bg-surface shadow-2xl translate-x-full transition-transform duration-300 flex flex-col" id="cart-sidebar">
+<div class="p-6 border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md">Your Bag (2)</h3>
+<button class="material-symbols-outlined" data-icon="close" onclick="toggleCart()">close</button>
+</div>
+<div class="flex-1 overflow-y-auto p-6 space-y-6">
+<div class="flex gap-4">
+<img class="w-20 h-24 object-cover rounded-lg" data-alt="A close-up shot of a delicate gold-plated boho pendant resting on a dark velvet surface. The jewelry piece features intricate filigree work, catching the ambient studio light. The overall aesthetic is luxurious and artisanal, reflecting a modern corporate yet traditional Indian heritage style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxAGdKmIlOwfSu_YMHzqCnR5hvmpuOaOQB-SraVvrHZIPvYOHqkEz0YBR68jwG9NLOxFaM8byMBnm4GAIMeyjd7GnHH0aXJkGFbqTCfs3c7QeVGNSv582fhrpDTeYSD5IkDy_f6WOEXa36B69TN8Ziy2ENj2Ua50fW0C7Cy1YXjBt5ndhCZtKOwIzi8x12bECzlShdHfqmkgXgSH4mp1ZOHPm5JYrOcQbcemGChNAzGeRKoroZb3W9shLHjL4_O-kmzizWbF_d9APF"/>
+<div class="flex-1">
+<p class="font-bold">BOHO PENDANT</p>
+<p class="text-on-surface-variant text-sm">Gold Plated / Anti-Tarnish</p>
+<p class="mt-2 font-semibold">₹1,299</p>
+</div>
+</div>
+<!-- More items can go here -->
+</div>
+<div class="p-6 bg-surface-container-low space-y-4">
+<div class="flex justify-between font-bold text-lg">
+<span>Total</span>
+<span>₹1,299</span>
+</div>
+<button class="w-full bg-primary text-white py-4 rounded-[4px] font-button text-button hover:opacity-90 transition-opacity">CHECKOUT NOW</button>
+</div>
+</aside>
+<main>
+<!-- Hero Section -->
+<section class="relative h-[751px] w-full overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="A moody, high-end editorial jewelry photography featuring a model in elegant dark attire adorned with heavy traditional Indian jewelry. The lighting is soft and directional, highlighting the intricate gold and stone details against a deep, dark brown background. The scene exudes a sense of timeless sophistication and royal craftsmanship, characteristic of a premium luxury brand." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBs0i3lAQlUX4ruWKtUm-qVCJjViyfAMc1oHD-tZCkta8SI-JamssmQQSbB8qBeWCYvSecbNiwUZbwVyCsrTPLLqoQXMmxB7IUnfPaypJQrT7rZEeCJhB3DWFp8_wQhZxiu9FnHy0DbX-jB7MwiaLRjujZddRhAUdPCu7nImGP7RMf34e1NV-EYVNh74EO1cCUJO_DxTXIN8NOqLalF7wBrD_E11vPPbjKr6PoYShniQjvochTjsE-E-miq4PtZ5viuDdYZOnVL3EI_');"></div>
+<div class="absolute inset-0 jewelry-gradient-overlay"></div>
+<div class="relative h-full max-w-max-width mx-margin-desktop flex flex-col justify-center items-start px-margin-mobile">
+<span class="text-secondary-fixed font-label-md tracking-[0.3em] mb-4">THE KOHINOOR EDIT</span>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-white mb-6 max-w-2xl">Jewellery that tells your story</h1>
+<p class="text-white/80 font-body-lg text-body-lg mb-8 max-w-lg">Experience the perfect blend of ancient Indian heritage and modern anti-tarnish technology. Crafted for the contemporary royalty in you.</p>
+<a class="bg-primary text-white px-10 py-4 rounded-[4px] font-button text-button tracking-widest hover:bg-primary/90 transition-all active:scale-95" href="listing.html">SHOP NOW</a>
+</div>
+</section>
+<!-- Trust Bar -->
+<section class="bg-surface-container py-12 px-margin-mobile">
+<div class="max-w-max-width mx-margin-desktop grid grid-cols-2 md:grid-cols-4 gap-8">
+<div class="flex flex-col items-center text-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="local_shipping">local_shipping</span>
+<p class="font-label-md text-label-md uppercase font-bold">Free Shipping</p>
+</div>
+<div class="flex flex-col items-center text-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="history">history</span>
+<p class="font-label-md text-label-md uppercase font-bold">7 Days Return</p>
+</div>
+<div class="flex flex-col items-center text-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="water_drop">water_drop</span>
+<p class="font-label-md text-label-md uppercase font-bold">Waterproof</p>
+</div>
+<div class="flex flex-col items-center text-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="payments">payments</span>
+<p class="font-label-md text-label-md uppercase font-bold">Cash On Delivery</p>
+</div>
+</div>
+</section>
+<!-- Category Grid -->
+<section class="py-section-v px-margin-mobile">
+<div class="max-w-max-width mx-margin-desktop text-center">
+<h2 class="font-display-lg text-headline-lg mb-12">Find Your Perfect Piece</h2>
+<div class="flex flex-wrap justify-center gap-8 md:gap-16">
+<a class="group flex flex-col items-center gap-4" href="listing.html">
+<div class="w-32 h-32 rounded-full overflow-hidden shadow-lg group-hover:scale-105 transition-transform duration-500">
+<img class="w-full h-full object-cover" data-alt="A detailed shot of a premium handcrafted necklace featuring ruby stones and gold filigree, presented in a circular composition. The background is a warm cream color, emphasizing the rich deep cherry and gold tones of the jewelry. The lighting is soft, creating a high-end boutique gallery feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAl8eIz52nJ_G3qprZUebpXGUAoM7fYc_twxHSHezTaUcBitglNBNWc7Tktx8zgGVuDqX131LSH1WOZScLAmKPje4JbdtWgDC98u5nKfWzf2HJpsPwdWd_nuXX8mlB7DF6n-St9OV4enz1KhrSdMKT6VM0XGbmsd7OeQnKH51yJlzTIVOIz9cw44nprU4ahDSBPIbxQjkzVh5Vf-Vkbq5nh4L7NvQDD-WJPjNKTQ1CztzaMFNnQZ65e_a1WffsAeUp5fdKHxHyZHk0X"/>
+</div>
+<p class="font-label-md text-label-md uppercase font-bold text-on-surface-variant group-hover:text-primary transition-colors">Necklaces</p>
+</a>
+<a class="group flex flex-col items-center gap-4" href="listing.html">
+<div class="w-32 h-32 rounded-full overflow-hidden shadow-lg group-hover:scale-105 transition-transform duration-500">
+<img class="w-full h-full object-cover" data-alt="Close-up of elegant gold jhumka earrings with pearl droplets, arranged artistically in a circular frame. The palette is dominated by soft gold and antique finishes against a minimalist neutral backdrop, reflecting timeless sophistication and artisanal quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARja4YiQXbfWVegU7uL6w3ytrtxgsBDer-dOWHaVY8pEG5lroBmq3Mx9bO0RIL8ap6eJlestjLIugGiIKOFWrNaCAwgUQmCFYWOxHalH-yvB8s8si8l43Wd9CHs2X9QnYK4asBWxd1-0Aeo-9r-J9swSS47fCmzr5pcTX-IZvkpQrldEGYxobtHdLBwW-KpHIoUQohq71Ab990yROvi4zimel19N6SP5Z8wz0-DmS6PzDkXMHG0z5uUdCN_sakQ1g8FA_V_a8xdk9s"/>
+</div>
+<p class="font-label-md text-label-md uppercase font-bold text-on-surface-variant group-hover:text-primary transition-colors">Earrings</p>
+</a>
+<a class="group flex flex-col items-center gap-4" href="listing.html">
+<div class="w-32 h-32 rounded-full overflow-hidden shadow-lg group-hover:scale-105 transition-transform duration-500">
+<img class="w-full h-full object-cover" data-alt="A collection of minimalist gold and silver rings with subtle gemstone accents, showcased in a circular aesthetic. The lighting is high-key and modern, emphasizing the anti-tarnish daily wear quality of the pieces against a warm cream background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-NH5FUB7UfYjtWe-cyDG3UPDJYLqhZ9Vt4H-56R3MN1T01X8vPTiBB1Frlz4PRQY9fnNP3jqpeNh6tPMmeF32CNQwATynS0C-1FhtSXaPTHnnEYHVpRlNb30xX4DOS5FuJBjYDrZIR2DYUqvC-lVfwYFEBivTv-pJKTR1QGV3t9niqt5zI5L4Uudg8I5E5pkH5oLWljGLBZA4onLmHeI_IBh1W3o-zFCgasaGo44JPuim6MDu-cy7n8ZkOGJbeLpby9kSRfk9KpTH"/>
+</div>
+<p class="font-label-md text-label-md uppercase font-bold text-on-surface-variant group-hover:text-primary transition-colors">Rings</p>
+</a>
+<a class="group flex flex-col items-center gap-4" href="listing.html">
+<div class="w-32 h-32 rounded-full overflow-hidden shadow-lg group-hover:scale-105 transition-transform duration-500">
+<img class="w-full h-full object-cover" data-alt="Delicate chain bracelets and bangles with intricate engravings, featured in a circular layout. The visual style is editorial and clean, with a focus on craftsmanship and premium materials in a soft gallery light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMQ67hsoz1DYgdNh3Ex1l-2HUyVXWK3ywpTCRKF19e-JVHWBIhKWjiR6dbGuzPkDUp0ieRwAbc9diXy1D35jxxt8WjVYzP44jyyhjl3jVYRNcyzwe4JV7VRHpfGsiZDjaJdYcxpKwpBLLLX5tyGqM8VLybonJKPBCWJ9euZjl0Kww7PBpf-q4UMUnovmrAJUieEzLC5Vb4X1rw6Poz5LTO-IrcBEDmF5QIqn5pzPuijQpMkpZNj9JAhhnVI40vMpnw7Qw1W_lz1nor"/>
+</div>
+<p class="font-label-md text-label-md uppercase font-bold text-on-surface-variant group-hover:text-primary transition-colors">Bracelets</p>
+</a>
+<a class="group flex flex-col items-center gap-4" href="listing.html">
+<div class="w-32 h-32 rounded-full overflow-hidden shadow-lg group-hover:scale-105 transition-transform duration-500">
+<img class="w-full h-full object-cover" data-alt="Artisanal pendants with traditional motifs, shown in a circular frame. The lighting highlights the textures and depth of the pieces, set against a soft cream tone to provide a modern minimalist edge to the traditional jewelry." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoNcVbUF8-RMz75EH4jaP7U34t5kUv9qFe-xNuloSd9TFCTcN4CFO-0oaxlqdIOLJDydq-dKb7hN2zwAgd3EzCY6YXPhkf8D1PQoQ1FGf1WypgD7DftdrwqWz3Wsxun3JX2qMx5sLXIv-e3k9YG7jvIV9K1FOTzVO8QCGPNk4KXBtv794Tdm_PpVcJ-od1W6xf6aQ_PW_2HHbk_6xZGgMCs58ilgysRqDN2g7pV6BkcSZxAuWj2fZzZCv3e_XIZ2buucAf-fS0IVCC"/>
+</div>
+<p class="font-label-md text-label-md uppercase font-bold text-on-surface-variant group-hover:text-primary transition-colors">Pendants</p>
+</a>
+</div>
+</div>
+</section>
+<!-- Featured Collections -->
+<section class="py-section-v px-margin-mobile bg-surface-container-low">
+<div class="max-w-max-width mx-margin-desktop grid grid-cols-1 md:grid-cols-2 gap-gutter-desktop">
+<div class="relative h-[500px] overflow-hidden group">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="An editorial shot of a model wearing large, intricate oxidized silver jewelry. The atmosphere is dark and moody, with deep shadows and soft highlights focusing on the metallic textures. The overall feel is artisanal and deeply rooted in heritage, yet contemporary in styling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0wUUByRp6rS5Tn4AJGTIT2vxyk3K8YSTv8TQiFdvG4Tdqka0PeSP53UwUdLPE_ytNXPibqN7qxuFIKFigY5MK80th-O18zwJMPG55jr_Kag7Dhl7m3fQYffzA17Bgn32ibsS_tjR8XD_NQPsHxkd4vNhpompbFk2ZbPFJ6trG5VAGdwLr4e4JMO4C7RrUVnhA3yWb09w9yUr3JqTVbETWVm59ThoAdqP-ApXfjK7Yzxp9_nXDLuyxbBylmBl9KSDfu8ZyRcpcu4g2"/>
+<div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors"></div>
+<div class="absolute inset-0 flex flex-col justify-end p-12 text-white">
+<h3 class="font-display-lg text-headline-lg mb-4">Oxidized Collection</h3>
+<p class="mb-6 font-body-md opacity-90">Embrace the vintage charm of handcrafted silver-toned treasures.</p>
+<a class="inline-block border-b-2 border-white font-button text-button w-fit pb-1 hover:border-secondary-fixed transition-colors" href="listing.html">EXPLORE COLLECTION</a>
+</div>
+</div>
+<div class="relative h-[500px] overflow-hidden group">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Luxury daily-wear jewelry pieces like small hoops and chain necklaces in 18k gold plating, displayed on a piece of smooth sandstone. The lighting is bright and sunny, emphasizing the tarnish-free, waterproof quality. The aesthetic is modern corporate minimalism with a luxury edge." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAK8nd2coY1isJqRzvXto4Lu2N0iKWKYfZnZAXvo54vEjVKh44ECmZSQIyB6vLWKgLmJzQRHucYyxnEfqUDFEhEmDW3fn1ESKe3pswSUx65wZeEbZtvRunlB6HT31ZnazG6I2une2IXMHXDlr8x0Nqkh8iFKkk3t3H7ciga4_w0TWKWbrwvLr4bJbpxzaSwp1BjEZnLjiKYkfM9rs7GMHTjp9qOltONfiVA0e7FCx1UwfqPck1HWLN3ICGNl1f5mNYy0ffgJmwyyEp2"/>
+<div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors"></div>
+<div class="absolute inset-0 flex flex-col justify-end p-12 text-white">
+<h3 class="font-display-lg text-headline-lg mb-4">Anti-Tarnish Daily Wear</h3>
+<p class="mb-6 font-body-md opacity-90">Everyday luxury that stays bright, no matter what your day holds.</p>
+<a class="inline-block border-b-2 border-white font-button text-button w-fit pb-1 hover:border-secondary-fixed transition-colors" href="listing.html">SHOP DAILY WEAR</a>
+</div>
+</div>
+</div>
+</section>
+<!-- New Season Banner -->
+<section class="relative h-[530px] flex items-center justify-center text-center overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-fixed bg-center" data-alt="A wide panoramic shot of jewelry pieces scattered across a dark, textured silk fabric. The lighting is low-key, with dramatic highlights on the gold and gemstones. The mood is one of discovery and exclusivity, perfectly suited for a 'Just Dropped' new arrival announcement." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDHo6ubW2Cwy0rA6y7XGNIXAd30nZH2Wsa7MlQ7e4Fdeu-RXUuu9ik5FbSfK_S5L4o35yukXuuUYKsQKvAqKbtg66U-UeTnAeuFxkoUR5ZG_bMBa8HUNbEeR1k1d01mZoBmWVdK9PUkQPgyU6joPatsCBdF2VdwXbdbRnDYGi_SCqXmne6OB_XRqC_w0YgUDGlNuZxWLKi0dE39M2ogQx0h4HVw1XTfiRQ3agEAOAZL4CxnU6OMcyuWrMUgNu_Ho-MzqmYMLS-1uItG');"></div>
+<div class="absolute inset-0 bg-primary/40 backdrop-blur-[2px]"></div>
+<div class="relative p-6 max-w-2xl">
+<p class="text-secondary-fixed font-label-md tracking-[0.4em] mb-6">FRESH FROM THE ATELIER</p>
+<h2 class="font-display-lg text-display-lg-mobile md:text-display-lg text-white mb-10">Just Dropped!</h2>
+<a class="bg-surface text-primary px-12 py-4 rounded-[4px] font-button text-button hover:bg-secondary-container transition-all" href="listing.html">SHOP ALL NEW</a>
+</div>
+</section>
+<!-- New Arrivals Product Row -->
+<section class="py-section-v">
+<div class="max-w-max-width mx-margin-desktop px-margin-mobile">
+<div class="flex justify-between items-end mb-12">
+<div>
+<h2 class="font-display-lg text-headline-lg">New Arrivals</h2>
+<p class="text-on-surface-variant font-body-md mt-2">The latest masterpieces from our heritage collection.</p>
+</div>
+<a class="hidden md:block text-primary font-bold border-b border-primary pb-1" href="listing.html">View All</a>
+</div>
+<div class="flex gap-gutter-desktop overflow-x-auto hide-scrollbar pb-8">
+<!-- Product 1 -->
+<div class="min-w-[280px] group flex-shrink-0">
+<div class="relative aspect-[3/4] overflow-hidden rounded-lg mb-4">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A premium boho-style pendant with a large central moonstone set in oxidized silver. The piece is photographed in a flat lay on a beige linen surface with soft afternoon shadows. The overall image is clean, professional, and emphasizes the handcrafted texture of the jewelry." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDf07DPh5m8QXsK7lTfQLP-w4C0R_4elK8Xhlol0xwaM668mWJx-051Qvoh2CXqKYP_wZi8ow9bDjjQDvcWQH7XZakjv9ewpcV481jxKavyUhF5E4VJVKimqQLAH-jWH7mnR3cnVhD7XPmmxxHeOXF-FI3QdTcTugoXIGJUVJnfIJUZBIAJmcurYyxZxxGme2f4HLqB6FrtVnUhqkbIQIZ0yxMyI8IoJAhcXzsKM-IR2BGKlu-sFqKmFBSz_Ilv_FbitERXTx6EYoti"/>
+<button class="absolute bottom-4 right-4 bg-white/90 p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0">
+<span class="material-symbols-outlined" data-icon="add_shopping_cart">add_shopping_cart</span>
+</button>
+</div>
+<div class="text-center">
+<p class="font-label-md text-on-surface-variant uppercase tracking-widest mb-1">Pendants</p>
+<h3 class="font-body-lg font-bold mb-1">BOHO PENDANT</h3>
+<p class="text-primary font-semibold">₹1,299</p>
+</div>
+</div>
+<!-- Product 2 -->
+<div class="min-w-[280px] group flex-shrink-0">
+<div class="relative aspect-[3/4] overflow-hidden rounded-lg mb-4">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Minimalist gold hoops with tiny hanging pearl charms. The jewelry is captured in a soft, bright environment against a warm cream background, highlighting the anti-tarnish coating. The composition is elegant and center-aligned, suitable for a high-end product gallery." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_5zBxkaM94fFkwR4floEzRGu0Ei_PLIKiN9EO_T_2zqJhsj7_9j-lU-a701ygUUmt8wzOUozioh90QP-ZFX8AC1wt_WuxC035d8DSlUJLr9d5665Odj_g0Xck5hYoCLAspnkfHiFtZgmP8oINwO9VKrM5Xy-jAJQpoYtuQYDZIga_22-ESck-qTV2zcOKYObIVI2ccYVTOpPT5tt6dgEWCbaAZDmWjzn-wZzS7YxDAuRqYKPFE6jeYHvnY9RLR2BuxpSO40atJ4w-"/>
+<button class="absolute bottom-4 right-4 bg-white/90 p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0">
+<span class="material-symbols-outlined" data-icon="add_shopping_cart">add_shopping_cart</span>
+</button>
+</div>
+<div class="text-center">
+<p class="font-label-md text-on-surface-variant uppercase tracking-widest mb-1">Earrings</p>
+<h3 class="font-body-lg font-bold mb-1">GLO HOOPS</h3>
+<p class="text-primary font-semibold">₹899</p>
+</div>
+</div>
+<!-- Product 3 -->
+<div class="min-w-[280px] group flex-shrink-0">
+<div class="relative aspect-[3/4] overflow-hidden rounded-lg mb-4">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A statement adjustable ring with a sunburst motif in gold finish. The ring is worn by a model with a soft-focus background, highlighting the piece as the central hero. The lighting is warm and inviting, evoking a feeling of regal craftsmanship and modern style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPLX55mm26bzxUsMlUmQumBKO9zC-NX5uWleq6qkle4iUaT2njd6V0rPA9OBg2Y3YtD35RPd4L-eCbeVdZj4rgSdMwYeex6TuTuViGSR0RjoSc3ISqdLo44lXIFjrCqAX5zfmsX6AtBo18qKMO6DOcNOpfldvkThsVrdkjvS6epkJFzMKD8mLAkCQqBzLVt25Jx2RCcQ5qs5trP9tAr_8A91HHi7rAQoVb7Oh8ndpuAw_GDGgYvQDTQYHL_8D1vjO2OSGY027ts6m7"/>
+<button class="absolute bottom-4 right-4 bg-white/90 p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0">
+<span class="material-symbols-outlined" data-icon="add_shopping_cart">add_shopping_cart</span>
+</button>
+</div>
+<div class="text-center">
+<p class="font-label-md text-on-surface-variant uppercase tracking-widest mb-1">Rings</p>
+<h3 class="font-body-lg font-bold mb-1">SOLARIS RING</h3>
+<p class="text-primary font-semibold">₹1,499</p>
+</div>
+</div>
+<!-- Product 4 -->
+<div class="min-w-[280px] group flex-shrink-0">
+<div class="relative aspect-[3/4] overflow-hidden rounded-lg mb-4">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A layered gold necklace set with delicate charms and gemstone beads. The jewelry is arranged on a marble surface, with the lighting creating soft, long shadows. The overall aesthetic is one of luxury, high-quality manufacturing, and timeless fashion relevance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBzvtazxSjfzbTD_X7FeJWv91HqdW6Bd8OPSVI3gc3Wk7SwkD5W2J3nEuUhSRe5tmOxZfdbIVVNXOOoLyR5MvjHdAsXrHfC4LfDuHyZmyu5sm_h7vPWTxSWYlk03NRbRO1pjYS4H2Lj_xwLq5WeKLK2RPejEzpoWM3xh9KQcbWi-YofgXVkAKFI2TN-y48TtdnPJ8qdK6xy9ikvOBDjV19HOmwsWq6LgOcOFzEx5gwYqTK-lLwTmxOPEl0rZTF1tHr60EpCA58Eg8S"/>
+<button class="absolute bottom-4 right-4 bg-white/90 p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0">
+<span class="material-symbols-outlined" data-icon="add_shopping_cart">add_shopping_cart</span>
+</button>
+</div>
+<div class="text-center">
+<p class="font-label-md text-on-surface-variant uppercase tracking-widest mb-1">Necklaces</p>
+<h3 class="font-body-lg font-bold mb-1">AURUM LAYERS</h3>
+<p class="text-primary font-semibold">₹2,199</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter Strip -->
+<section class="py-16 bg-surface border-y border-outline-variant px-margin-mobile">
+<div class="max-w-3xl mx-auto text-center">
+<h2 class="font-display-lg text-headline-lg mb-4">Join the Inner Circle</h2>
+<p class="text-on-surface-variant mb-10">Subscribe to receive early access to new launches, exclusive offers, and styling tips.</p>
+<form class="flex flex-col md:flex-row gap-4">
+<input class="flex-1 px-6 py-4 bg-surface-container border-none rounded-[4px] focus:ring-2 focus:ring-secondary transition-all" placeholder="Your email address" type="email"/>
+<button class="bg-primary text-white px-10 py-4 rounded-[4px] font-button text-button hover:bg-primary/90 transition-all uppercase tracking-widest">Subscribe</button>
+</form>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-tertiary text-surface py-section-v px-margin-mobile md:px-gutter-desktop grid grid-cols-1 md:grid-cols-3 gap-12 w-full">
+<div class="space-y-6">
+<span class="font-display-lg text-headline-md text-surface-bright tracking-widest">KOHINOOR</span>
+<p class="text-surface-variant max-w-sm opacity-80 font-body-md">Bridging the gap between ancient Indian heritage and contemporary luxury. Our jewelry is designed for the modern woman who values tradition and effortless style.</p>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded-full border border-surface-variant/30 flex items-center justify-center hover:bg-surface-variant/10 transition-colors" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="share">share</span>
+</a>
+<a class="w-10 h-10 rounded-full border border-surface-variant/30 flex items-center justify-center hover:bg-surface-variant/10 transition-colors" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="camera">camera</span>
+</a>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-8">
+<div class="space-y-4">
+<h4 class="font-label-md text-label-md text-secondary-fixed font-bold uppercase tracking-widest">Collections</h4>
+<ul class="space-y-2 text-surface-variant font-body-md">
+<li><a class="hover:text-secondary-fixed transition-colors" href="listing.html">New Arrivals</a></li>
+<li><a class="hover:text-secondary-fixed transition-colors" href="listing.html">Necklaces</a></li>
+<li><a class="hover:text-secondary-fixed transition-colors" href="listing.html">Earrings</a></li>
+<li><a class="hover:text-secondary-fixed transition-colors" href="listing.html">Rings</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h4 class="font-label-md text-label-md text-secondary-fixed font-bold uppercase tracking-widest">Customer Care</h4>
+<ul class="space-y-2 text-surface-variant font-body-md">
+<li><a class="hover:text-secondary-fixed transition-colors" href="#">Shipping Policy</a></li>
+<li><a class="hover:text-secondary-fixed transition-colors" href="#">Returns &amp; Refunds</a></li>
+<li><a class="hover:text-secondary-fixed transition-colors" href="#">Care Guide</a></li>
+<li><a class="hover:text-secondary-fixed transition-colors" href="#">Contact Us</a></li>
+</ul>
+</div>
+</div>
+<div class="space-y-6">
+<h4 class="font-label-md text-label-md text-secondary-fixed font-bold uppercase tracking-widest">Visit Our Studio</h4>
+<p class="text-surface-variant font-body-md">A-12, Heritage Plaza, <br/>Udaipur, Rajasthan 313001</p>
+<p class="text-surface-variant font-body-md">support@kohinoorjewelry.com<br/>+91 98765 43210</p>
+<div class="pt-6 border-t border-surface-variant/20">
+<p class="text-xs text-surface-variant/60 font-label-md tracking-widest">© 2024 KOHINOOR JEWELRY. ALL RIGHTS RESERVED.</p>
+</div>
+</div>
+</footer>
+<!-- Bottom Nav for Mobile -->
+<nav class="fixed bottom-0 left-0 w-full h-16 z-50 flex justify-around items-center bg-surface md:hidden border-t border-outline-variant shadow-[0_-4px_20px_rgba(43,27,23,0.05)]">
+<a class="flex flex-col items-center justify-center text-primary font-bold" href="index.html">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span class="font-label-md text-label-md">Shop</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+<span class="font-label-md text-label-md">Wishlist</span>
+</a>
+<button class="flex flex-col items-center justify-center text-on-surface-variant" onclick="toggleSearch()">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="font-label-md text-label-md">Search</span>
+</button>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-label-md">Account</span>
+</a>
+</nav>
+<script>
+        function toggleDrawer() {
+            const drawer = document.getElementById('nav-drawer');
+            const overlay = document.getElementById('drawer-overlay');
+            drawer.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+
+        function toggleSearch() {
+            const overlay = document.getElementById('search-overlay');
+            overlay.classList.toggle('hidden');
+            overlay.classList.toggle('flex');
+        }
+
+        function toggleCart() {
+            const sidebar = document.getElementById('cart-sidebar');
+            const overlay = document.getElementById('cart-overlay');
+            sidebar.classList.toggle('translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+
+        // Simple scroll reveal for sticky header shadow
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 10) {
+                header.classList.add('shadow-lg');
+            } else {
+                header.classList.remove('shadow-lg');
+            }
+        });
+    </script>
+</body></html>

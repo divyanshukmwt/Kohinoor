@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    min-height: max(884px, 100dvh);
+  }
+}
+
+.wishlist-active {
+  font-variation-settings: 'FILL' 1 !important;
+  color: #ae2e39 !important;
+}
+
+.filled-icon {
+  font-variation-settings: 'FILL' 1;
+}
+
+/* Custom scrollbars hiding */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

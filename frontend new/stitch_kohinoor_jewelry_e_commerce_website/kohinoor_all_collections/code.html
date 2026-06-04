@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Collections | KOHINOOR JEWELRY</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Manrope:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .wishlist-active {
+            font-variation-settings: 'FILL' 1 !important;
+            color: #ae2e39 !important;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "error": "#ba1a1a",
+                      "on-primary-container": "#ff7b7f",
+                      "primary-fixed": "#ffdad9",
+                      "on-error": "#ffffff",
+                      "secondary-fixed": "#ffddb2",
+                      "primary-fixed-dim": "#ffb3b2",
+                      "on-secondary": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "primary-container": "#7a0019",
+                      "on-tertiary-fixed": "#291806",
+                      "background": "#fff8f0",
+                      "surface-tint": "#ae2e39",
+                      "on-secondary-container": "#785a2d",
+                      "on-primary-fixed": "#410009",
+                      "tertiary": "#33210e",
+                      "on-surface": "#1d1b16",
+                      "on-error-container": "#93000a",
+                      "on-secondary-fixed-variant": "#5d4218",
+                      "surface-variant": "#e8e2d9",
+                      "secondary-fixed-dim": "#e8c08b",
+                      "on-surface-variant": "#584141",
+                      "surface": "#fff8f0",
+                      "tertiary-fixed-dim": "#e1c1a4",
+                      "outline": "#8c7070",
+                      "surface-container-low": "#f9f3ea",
+                      "secondary": "#77592d",
+                      "surface-container-highest": "#e8e2d9",
+                      "on-background": "#1d1b16",
+                      "primary": "#51000d",
+                      "inverse-on-surface": "#f6f0e7",
+                      "surface-dim": "#dfd9d1",
+                      "surface-container-high": "#ede7df",
+                      "on-primary-fixed-variant": "#8d1324",
+                      "error-container": "#ffdad6",
+                      "surface-bright": "#fff8f0",
+                      "secondary-container": "#fdd39c",
+                      "on-tertiary-container": "#bd9f84",
+                      "inverse-surface": "#33302b",
+                      "tertiary-container": "#4b3621",
+                      "on-tertiary-fixed-variant": "#59422d",
+                      "on-secondary-fixed": "#291800",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-primary": "#ffb3b2",
+                      "outline-variant": "#e0bfbe",
+                      "on-tertiary": "#ffffff",
+                      "surface-container": "#f3ede4",
+                      "tertiary-fixed": "#ffdcbf"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "gutter-desktop": "24px",
+                      "section-v": "64px",
+                      "base": "8px",
+                      "max-width": "1280px",
+                      "margin-desktop": "auto",
+                      "margin-mobile": "20px"
+              },
+              "fontFamily": {
+                      "display-lg-mobile": ["Playfair Display"],
+                      "body-md": ["Manrope"],
+                      "headline-lg": ["Playfair Display"],
+                      "button": ["Manrope"],
+                      "label-md": ["Manrope"],
+                      "headline-md": ["Playfair Display"],
+                      "body-lg": ["Manrope"],
+                      "display-lg": ["Playfair Display"]
+              },
+              "fontSize": {
+                      "display-lg-mobile": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                      "button": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "display-lg": ["56px", {"lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- Announcement Bar -->
+<div class="w-full bg-primary text-on-primary py-2 px-margin-mobile text-center">
+<p class="font-label-md text-label-md uppercase tracking-[0.2em]">Free Shipping on all luxury pieces over ₹5,000</p>
+</div>
+<!-- TopAppBar -->
+<header class="sticky top-0 z-50 flex justify-between items-center px-margin-mobile md:px-gutter-desktop h-16 w-full bg-surface border-b border-outline-variant shadow-[0_40px_40px_rgba(43,27,23,0.05)]">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined cursor-pointer active:scale-95 transition-transform text-primary md:hidden">menu</button>
+<a class="font-display-lg text-headline-md text-primary tracking-widest" href="index.html">KOHINOOR</a>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-primary border-b-2 border-outline font-label-md text-label-md transition-colors duration-300" href="listing.html">Collections</a>
+<a class="text-on-surface-variant hover:text-primary font-label-md text-label-md transition-colors duration-300" href="#">Our Story</a>
+<a class="text-on-surface-variant hover:text-primary font-label-md text-label-md transition-colors duration-300" href="#">Care Guide</a>
+</nav>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined cursor-pointer active:scale-95 transition-transform text-primary">search</span>
+<span class="material-symbols-outlined cursor-pointer active:scale-95 transition-transform text-primary">shopping_bag</span>
+</div>
+</header>
+<main class="max-w-max-width mx-auto px-margin-mobile md:px-gutter-desktop">
+<!-- Section 1: Page Header -->
+<section class="py-section-v flex flex-col items-center text-center">
+<nav class="flex items-center gap-2 mb-4 text-on-surface-variant">
+<a class="font-label-md text-label-md hover:text-primary transition-colors" href="index.html">HOME</a>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<span class="font-label-md text-label-md text-primary">COLLECTIONS</span>
+</nav>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-4">All Collections</h1>
+<p class="max-w-2xl font-body-lg text-body-lg text-on-surface-variant">
+                Experience the fusion of ancient Indian heritage and modern anti-tarnish technology. Handcrafted elegance designed for the contemporary royal.
+            </p>
+</section>
+<!-- Section 2: Sticky Filter & Sort Bar -->
+<div class="sticky top-16 z-40 bg-background/95 backdrop-blur-md py-4 mb-8">
+<div class="flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 no-scrollbar" id="category-filters">
+<button class="filter-pill whitespace-nowrap px-6 py-2 rounded-full border border-outline bg-primary text-on-primary font-label-md text-label-md transition-all active:scale-95" data-category="ALL">ALL</button>
+<button class="filter-pill whitespace-nowrap px-6 py-2 rounded-full border border-outline-variant text-on-surface-variant hover:border-primary font-label-md text-label-md transition-all active:scale-95" data-category="NECKLACES">NECKLACES</button>
+<button class="filter-pill whitespace-nowrap px-6 py-2 rounded-full border border-outline-variant text-on-surface-variant hover:border-primary font-label-md text-label-md transition-all active:scale-95" data-category="EARRINGS">EARRINGS</button>
+<button class="filter-pill whitespace-nowrap px-6 py-2 rounded-full border border-outline-variant text-on-surface-variant hover:border-primary font-label-md text-label-md transition-all active:scale-95" data-category="RINGS">RINGS</button>
+<button class="filter-pill whitespace-nowrap px-6 py-2 rounded-full border border-outline-variant text-on-surface-variant hover:border-primary font-label-md text-label-md transition-all active:scale-95" data-category="BRACELETS">BRACELETS</button>
+</div>
+<div class="flex items-center gap-4 w-full md:w-auto">
+<div class="relative w-full md:w-48 group">
+<select class="w-full appearance-none bg-surface-container border border-outline-variant px-4 py-2 pr-10 font-label-md text-label-md focus:border-secondary outline-none rounded-lg transition-colors cursor-pointer">
+<option>SORT BY: NEWEST</option>
+<option>PRICE: LOW TO HIGH</option>
+<option>PRICE: HIGH TO LOW</option>
+<option>MOST POPULAR</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 3: Results Count -->
+<div class="flex justify-between items-center mb-8 border-b border-outline-variant pb-4">
+<p class="font-body-md text-body-md text-on-surface-variant" id="results-count">Showing <span class="font-bold text-on-surface">12</span> products</p>
+<div class="flex items-center gap-2">
+<button class="material-symbols-outlined p-1 text-primary active:scale-90 transition-transform" title="Grid View">grid_view</button>
+<button class="material-symbols-outlined p-1 text-on-surface-variant hover:text-primary active:scale-90 transition-transform" title="List View">view_list</button>
+</div>
+</div>
+<!-- Section 4: Product Grid -->
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-gutter-desktop gap-y-12 mb-section-v" id="product-grid">
+<!-- Product Cards generated by JS or manually -->
+<!-- Item 1 -->
+<div class="product-card group" data-category="NECKLACES">
+<div class="relative overflow-hidden rounded-xl bg-surface-container aspect-[3/4] mb-4 shadow-[0_40px_40px_rgba(43,27,23,0.05)] transition-transform duration-500 hover:-translate-y-2">
+<img alt="Boho Pendant Necklace" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A macro photograph of a gold boho pendant necklace with intricate filigree details, resting on a clean, soft cream silk fabric. The lighting is warm and directional, highlighting the metallic sheen and the artisanal craftsmanship. The atmosphere is luxurious, minimalist, and editorial, reflecting a premium jewelry brand's high-end aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzZOK5G1A3qPO11WDwDKgLRdo-6ShoYpYPd_2B__cO8_bzZceG59ZoTw9fed-B3AZlEuoaNWz9smf57yqIQfOJiGDvw8ONrVUVahKVsIGmSiGl_B8iAkGwS7QTi6qgpJX_Av3jAabmBwuBia2UnhDL-8EGb1RXPXq4509nT3bDSd2rFdgVnLQAKOYiULwJAnqlMWAJSlwKb0XejVlt704Im9C4UbRpEzE5wBf9LE--RaKPbQaeNAvzEV0WuoENbWO4OEByGy1oV8uZ"/>
+<div class="absolute top-3 left-3 px-2 py-1 bg-secondary-container text-on-secondary-container font-label-md text-[10px] rounded uppercase tracking-wider">Heritage</div>
+<button class="wishlist-btn absolute top-3 right-3 w-8 h-8 rounded-full bg-surface/80 flex items-center justify-center text-primary transition-all hover:bg-surface active:scale-90">
+<span class="material-symbols-outlined text-lg">favorite</span>
+</button>
+</div>
+<div class="text-center px-2">
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">NECKLACES</p>
+<a class="block font-headline-md text-headline-md text-on-surface hover:text-primary transition-colors mb-2" href="product.html">Boho Pendant Necklace</a>
+<div class="flex items-center justify-center gap-1 mb-2 text-tertiary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm">star_half</span>
+<span class="font-label-md text-[10px] ml-1 text-on-surface-variant">(42)</span>
+</div>
+<div class="flex items-center justify-center gap-2 mb-4">
+<span class="font-headline-md text-headline-md text-primary">₹1,299</span>
+<span class="font-body-md text-body-md text-on-surface-variant line-through">₹2,499</span>
+</div>
+<button class="w-full py-3 border border-primary text-primary font-button text-button hover:bg-primary hover:text-on-primary transition-all active:scale-95 tracking-widest">ADD TO CART</button>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="product-card group" data-category="EARRINGS">
+<div class="relative overflow-hidden rounded-xl bg-surface-container aspect-[3/4] mb-4 shadow-[0_40px_40px_rgba(43,27,23,0.05)] transition-transform duration-500 hover:-translate-y-2">
+<img alt="Oxidized Jhumka" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A close-up shot of traditional Indian oxidized silver Jhumka earrings with delicate bead droplets, hanging from a rustic wooden stand. The soft gold accent lighting creates a regal yet artisanal mood. The background is a warm cream tone, maintaining a consistent corporate modern minimalist style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCu5UohY44gO09U-opQx9ZObE9FSH5UB2ezDoyBd-iQ52ItDoCre3JHBYgTucnWcROT2CRTiH1M8VAmnNHvV0O-Lqo6OmY16IFwpoNJzMIsTfWH_5fZmVjczFNxOaAfNiUrLPx9uTYMv18iZj1XxzKeFMrnlidyxf8lwSk3L9X5d8NsHnRKdJlYv97Gglo6lX-TOghfqv-et4wopK0smNoMveQSCewqasFoHwzN-EawfQrs1QIdTYYnqcu2LagrQxSeN5ZGBk974V5A"/>
+<div class="absolute top-3 left-3 px-2 py-1 bg-tertiary-container text-on-tertiary-container font-label-md text-[10px] rounded uppercase tracking-wider">Ant-Tarnish</div>
+<button class="wishlist-btn absolute top-3 right-3 w-8 h-8 rounded-full bg-surface/80 flex items-center justify-center text-primary transition-all hover:bg-surface active:scale-90">
+<span class="material-symbols-outlined text-lg">favorite</span>
+</button>
+</div>
+<div class="text-center px-2">
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">EARRINGS</p>
+<a class="block font-headline-md text-headline-md text-on-surface hover:text-primary transition-colors mb-2" href="product.html">Oxidized Jhumka</a>
+<div class="flex items-center justify-center gap-1 mb-2 text-tertiary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-md text-[10px] ml-1 text-on-surface-variant">(128)</span>
+</div>
+<div class="flex items-center justify-center gap-2 mb-4">
+<span class="font-headline-md text-headline-md text-primary">₹899</span>
+</div>
+<button class="w-full py-3 border border-primary text-primary font-button text-button hover:bg-primary hover:text-on-primary transition-all active:scale-95 tracking-widest">ADD TO CART</button>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="product-card group" data-category="NECKLACES">
+<div class="relative overflow-hidden rounded-xl bg-surface-container aspect-[3/4] mb-4 shadow-[0_40px_40px_rgba(43,27,23,0.05)] transition-transform duration-500 hover:-translate-y-2">
+<img alt="Layered Chain Necklace" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A modern, minimalist layered gold chain necklace displayed on a mannequin's neck against a soft neutral background. The lighting is soft and diffused, highlighting the elegant drape and the polished finish of the gold. The image exudes timeless sophistication and contemporary luxury." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXUQRZxqLGr0DTwpiqsl5hpuCEEgz1HP_DTUMfXAXZjN0MXUpjGlrvHP12VHY7GmKGgU5U8n_EVakQmcrESLimLW3yy_7vdHMBrMejiB7m0XwN32ZdRPrU5uP1XdKMtCb6QIzGHMC1eBheux-pHl218hJpg6iUKqNX555aKXSu-tW60XKcX89u1FfFsos-vOmYNqZCGxocjap07gsPe4ZnZD_4ju200b0ZWc2z2cleL5yMB87_K5NEiBtRNpGT-LvetSjigxvVVnI1"/>
+<button class="wishlist-btn absolute top-3 right-3 w-8 h-8 rounded-full bg-surface/80 flex items-center justify-center text-primary transition-all hover:bg-surface active:scale-90">
+<span class="material-symbols-outlined text-lg">favorite</span>
+</button>
+</div>
+<div class="text-center px-2">
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">NECKLACES</p>
+<a class="block font-headline-md text-headline-md text-on-surface hover:text-primary transition-colors mb-2" href="product.html">Layered Chain Necklace</a>
+<div class="flex items-center justify-center gap-1 mb-2 text-tertiary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="font-label-md text-[10px] ml-1 text-on-surface-variant">(18)</span>
+</div>
+<div class="flex items-center justify-center gap-2 mb-4">
+<span class="font-headline-md text-headline-md text-primary">₹1,499</span>
+<span class="font-body-md text-body-md text-on-surface-variant line-through">₹2,199</span>
+</div>
+<button class="w-full py-3 border border-primary text-primary font-button text-button hover:bg-primary hover:text-on-primary transition-all active:scale-95 tracking-widest">ADD TO CART</button>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="product-card group" data-category="RINGS">
+<div class="relative overflow-hidden rounded-xl bg-surface-container aspect-[3/4] mb-4 shadow-[0_40px_40px_rgba(43,27,23,0.05)] transition-transform duration-500 hover:-translate-y-2">
+<img alt="Royal Emerald Ring" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A high-end editorial shot of a royal emerald ring set in a 14k gold band with small side diamonds. The ring sits on a polished marble surface with soft, high-key lighting. The overall mood is grounded, artisanal, and exceptionally premium, using deep cherry red and gold highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBB5IlJSRy1eFd_P66WlGMWG2R73di6brCX2cF7MDGxS8WQP3D-1P0u2l04zUbum-oqoYsySSoANu73ycjpAoaW576uhmsu2gyz8Phh10yEi-nqSUMy82WrMAdgnvv4gbQ_0_kGSlmhw6JejkE8row1_WhsX3dF_8Ho1ZlEKXBpHaTfmvK_yT4aYj32q2BPoktsLy4_nThTuYHPVOJpGgD-ZwQ7THuJM-hBuwwZ425xa5pxNaMm8W0P2SkWRPLJ7yF9Q2w9tkABdtOx"/>
+<div class="absolute top-3 left-3 px-2 py-1 bg-primary text-on-primary font-label-md text-[10px] rounded uppercase tracking-wider">Limited</div>
+<button class="wishlist-btn absolute top-3 right-3 w-8 h-8 rounded-full bg-surface/80 flex items-center justify-center text-primary transition-all hover:bg-surface active:scale-90">
+<span class="material-symbols-outlined text-lg">favorite</span>
+</button>
+</div>
+<div class="text-center px-2">
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">RINGS</p>
+<a class="block font-headline-md text-headline-md text-on-surface hover:text-primary transition-colors mb-2" href="product.html">Royal Emerald Ring</a>
+<div class="flex items-center justify-center gap-1 mb-2 text-tertiary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-md text-[10px] ml-1 text-on-surface-variant">(5)</span>
+</div>
+<div class="flex items-center justify-center gap-2 mb-4">
+<span class="font-headline-md text-headline-md text-primary">₹3,999</span>
+</div>
+<button class="w-full py-3 border border-primary text-primary font-button text-button hover:bg-primary hover:text-on-primary transition-all active:scale-95 tracking-widest">ADD TO CART</button>
+</div>
+</div>
+<!-- Item 5 to 12 Placeholder Cards for Grid Integrity -->
+<script>
+                const extraProducts = [
+                    { name: "Celestial Studs", category: "EARRINGS", price: "₹799", img: "https://images.unsplash.com/photo-1590548784585-645d8903e86a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", tag: "Daily Wear" },
+                    { name: "Temple Coin Bangle", category: "BRACELETS", price: "₹2,199", img: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", tag: "Heritage" },
+                    { name: "Minimalist Pearl Ring", category: "RINGS", price: "₹1,249", img: "https://images.unsplash.com/photo-1544441893-675973eebb39?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                    { name: "Rose Gold Anklet", category: "BRACELETS", price: "₹999", img: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                    { name: "Vintage Kundan Choker", category: "NECKLACES", price: "₹5,499", img: "https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", tag: "Artisanal" },
+                    { name: "Silver Leaf Hoops", category: "EARRINGS", price: "₹1,100", img: "https://images.unsplash.com/photo-1588444837495-c6cfaf504670?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                    { name: "Infinity Band", category: "RINGS", price: "₹850", img: "https://images.unsplash.com/photo-1603561591411-071c4f723932?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                    { name: "Traditional Kada", category: "BRACELETS", price: "₹1,899", img: "https://images.unsplash.com/photo-1630019058353-5248f3ccb952?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
+                ];
+
+                const grid = document.getElementById('product-grid');
+                extraProducts.forEach(product => {
+                    const card = document.createElement('div');
+                    card.className = "product-card group";
+                    card.dataset.category = product.category;
+                    card.innerHTML = `
+                        <div class="relative overflow-hidden rounded-xl bg-surface-container aspect-[3/4] mb-4 shadow-[0_40px_40px_rgba(43,27,23,0.05)] transition-transform duration-500 hover:-translate-y-2">
+                            <img src="${product.img}" alt="${product.name}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                            ${product.tag ? `<div class="absolute top-3 left-3 px-2 py-1 bg-surface-variant text-on-surface-variant font-label-md text-[10px] rounded uppercase tracking-wider">${product.tag}</div>` : ''}
+                            <button class="wishlist-btn absolute top-3 right-3 w-8 h-8 rounded-full bg-surface/80 flex items-center justify-center text-primary transition-all hover:bg-surface active:scale-90">
+                                <span class="material-symbols-outlined text-lg">favorite</span>
+                            </button>
+                        </div>
+                        <div class="text-center px-2">
+                            <p class="font-label-md text-label-md text-on-surface-variant mb-1">${product.category}</p>
+                            <a href="product.html" class="block font-headline-md text-headline-md text-on-surface hover:text-primary transition-colors mb-2">${product.name}</a>
+                            <div class="flex items-center justify-center gap-1 mb-2 text-tertiary">
+                                <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-sm">star</span>
+                                <span class="font-label-md text-[10px] ml-1 text-on-surface-variant">(12)</span>
+                            </div>
+                            <div class="flex items-center justify-center mb-4">
+                                <span class="font-headline-md text-headline-md text-primary">${product.price}</span>
+                            </div>
+                            <button class="w-full py-3 border border-primary text-primary font-button text-button hover:bg-primary hover:text-on-primary transition-all active:scale-95 tracking-widest">ADD TO CART</button>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            </script>
+</div>
+<!-- Section 5: Pagination -->
+<div class="flex flex-col items-center gap-6 mb-section-v">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-[0.2em]">Viewing 12 of 48 products</p>
+<div class="w-64 h-1 bg-surface-variant rounded-full overflow-hidden">
+<div class="w-1/4 h-full bg-primary transition-all duration-500"></div>
+</div>
+<button class="px-12 py-4 border-2 border-primary text-primary font-button text-button hover:bg-primary hover:text-on-primary transition-all active:scale-95 rounded-lg">LOAD MORE PIECES</button>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full bg-tertiary py-section-v px-margin-mobile md:px-gutter-desktop grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="flex flex-col gap-4">
+<h2 class="font-display-lg text-headline-md text-surface-bright tracking-widest">KOHINOOR</h2>
+<p class="font-body-md text-body-md text-surface-variant">Bridging ancient Indian heritage with contemporary luxury through anti-tarnish artisanal jewelry.</p>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-md text-label-md text-surface-bright uppercase">Explore</h4>
+<div class="flex flex-col gap-2">
+<a class="text-surface-variant hover:text-secondary-fixed transition-colors underline-offset-4 hover:underline" href="listing.html">Collections</a>
+<a class="text-surface-variant hover:text-secondary-fixed transition-colors underline-offset-4 hover:underline" href="#">Our Story</a>
+<a class="text-surface-variant hover:text-secondary-fixed transition-colors underline-offset-4 hover:underline" href="#">Shipping Policy</a>
+<a class="text-surface-variant hover:text-secondary-fixed transition-colors underline-offset-4 hover:underline" href="#">Returns</a>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-md text-label-md text-surface-bright uppercase">Connect</h4>
+<p class="text-surface-variant font-body-md">Join our royal circle for exclusive launches.</p>
+<div class="flex gap-2">
+<input class="bg-tertiary-container border border-outline text-surface-bright px-4 py-2 w-full focus:border-secondary-fixed outline-none rounded" placeholder="Email Address" type="email"/>
+<button class="bg-secondary-fixed text-on-secondary-fixed px-4 font-button text-button rounded active:scale-95 transition-transform">JOIN</button>
+</div>
+</div>
+<div class="md:col-span-3 pt-8 border-t border-outline-variant text-center">
+<p class="font-label-md text-label-md text-surface-variant">© 2024 KOHINOOR JEWELRY. ALL RIGHTS RESERVED.</p>
+</div>
+</footer>
+<!-- Mobile Navigation Shell -->
+<nav class="fixed bottom-0 left-0 w-full h-16 z-50 flex justify-around items-center bg-surface border-t border-outline-variant shadow-lg md:hidden">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all active:scale-90" href="index.html">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-label-md text-label-md">Shop</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary font-bold transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined">favorite</span>
+<span class="font-label-md text-label-md">Wishlist</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-md text-label-md">Search</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md">Account</span>
+</a>
+</nav>
+<script>
+        // Category Filtering Logic
+        const filterButtons = document.querySelectorAll('.filter-pill');
+        const productCards = document.querySelectorAll('.product-card');
+        const resultsCountSpan = document.querySelector('#results-count span');
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const category = btn.dataset.category;
+                
+                // Update UI state
+                filterButtons.forEach(b => {
+                    b.classList.remove('bg-primary', 'text-on-primary');
+                    b.classList.add('text-on-surface-variant', 'border-outline-variant');
+                });
+                btn.classList.add('bg-primary', 'text-on-primary');
+                btn.classList.remove('text-on-surface-variant', 'border-outline-variant');
+
+                // Filter items
+                let visibleCount = 0;
+                productCards.forEach(card => {
+                    if (category === 'ALL' || card.dataset.category === category) {
+                        card.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                resultsCountSpan.textContent = visibleCount;
+            });
+        });
+
+        // Wishlist Toggle Logic
+        const wishlistBtns = document.querySelectorAll('.wishlist-btn');
+        wishlistBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const icon = btn.querySelector('.material-symbols-outlined');
+                icon.classList.toggle('wishlist-active');
+                
+                // Scale animation
+                btn.classList.add('scale-125');
+                setTimeout(() => btn.classList.remove('scale-125'), 200);
+            });
+        });
+
+        // Simple Smooth Scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body></html>
