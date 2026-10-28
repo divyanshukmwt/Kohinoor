@@ -1,13 +1,14 @@
 """
-Éclat Jewellery Platform — FastAPI Backend
-Production-ready API server with all routers registered.
+Kohinoor / Éclat Jewellery Platform — FastAPI Backend
+Production-ready API server with automatic Knowledge Base seeding on startup.
 """
 
 import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.database.connection import create_tables
+from app.database.connection import create_tables, SessionLocal
+from app.products.product_service import ensure_seeded
 from app.products.product_routes import router as product_router
 from app.cart.cart_routes         import router as cart_router
 from app.orders.order_routes      import router as order_router
@@ -15,22 +16,35 @@ from app.chatbot.chatbot_routes   import router as chatbot_router
 
 # ── App ────────────────────────────────────────
 app = FastAPI(
-    title="Éclat Jewellery API",
-    description="AI-powered luxury jewellery commerce platform",
-    version="1.0.0",
+    title="Kohinoor Jewellery & AI Concierge API",
+    description="AI-powered heritage & luxury jewellery commerce platform with local Knowledge Base retrieval",
+    version="2.0.0",
     docs_url="/docs",
     redoc_url="/redoc",
 )
 
 # ── CORS ───────────────────────────────────────
-ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000").split(",")
+DEFAULT_ORIGINS = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+env_origins = [
+    o.strip().rstrip("/")
+    for o in os.getenv("ALLOWED_ORIGINS", "").split(",")
+    if o.strip()
+]
+allow_all = "*" in env_origins
+ALLOWED_ORIGINS = ["*"] if allow_all else list(dict.fromkeys(DEFAULT_ORIGINS + env_origins))
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=     [o.strip() for o in ALLOWED_ORIGINS],
-    allow_credentials= True,
-    allow_methods=     ["*"],
-    allow_headers=     ["*"],
+    allow_origins=ALLOWED_ORIGINS,
+    allow_origin_regex=None if allow_all else r"https?://(localhost|127\.0\.0\.1)(:\d+)?|https://.*\.vercel\.app",
+    allow_credentials=not allow_all,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # ── Startup ────────────────────────────────────
@@ -38,9 +52,14 @@ app.add_middleware(
 def on_startup():
     try:
         create_tables()
-        print("✅ Éclat API ready — tables initialized")
+        db = SessionLocal()
+        try:
+            seeded = ensure_seeded(db, force_update=True)
+            print(f"[OK] Kohinoor API ready - tables initialized ({seeded} items synced)")
+        finally:
+            db.close()
     except Exception as e:
-        print(f"⚠️  DB init warning (tables may already exist): {e}")
+        print(f"[WARN] Startup initialization warning: {e}")
 
 # ── Routers ────────────────────────────────────
 app.include_router(product_router,  prefix="/api")
@@ -48,18 +67,16 @@ app.include_router(cart_router,     prefix="/api")
 app.include_router(order_router,    prefix="/api")
 app.include_router(chatbot_router,  prefix="/api")
 
-# Admin routes (optional — add X-Admin-Key header for protection)
-try:
-    from app.admin.admin_routes import router as admin_router
-    app.include_router(admin_router, prefix="/api")
-    print("✅ Admin routes registered")
-except ImportError:
-    pass  # Admin module not present — that's fine
 
 # ── Health ────────────────────────────────────
 @app.get("/")
 def root():
-    return {"status": "healthy", "service": "Éclat Jewellery API", "version": "1.0.0"}
+    return {
+        "status": "healthy",
+        "service": "Kohinoor Jewellery & AI Concierge API",
+        "version": "2.0.0",
+        "knowledgeBase": "active",
+    }
 
 @app.get("/health")
 def health():

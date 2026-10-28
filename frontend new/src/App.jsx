@@ -9,12 +9,13 @@ import { ProductDetail } from './pages/ProductDetail';
 import { CartDrawer } from './components/CartDrawer';
 import { SearchOverlay } from './components/SearchOverlay';
 import { NavigationDrawer } from './components/NavigationDrawer';
+import { AIConcierge } from './components/AIConcierge';
 
 function App() {
   return (
     <AppProvider>
       <Router>
-        <div className="flex flex-col min-h-screen bg-surface">
+        <div className="flex flex-col min-h-screen bg-surface text-on-surface antialiased">
           {/* Global Header/Nav */}
           <Navbar />
 
@@ -23,13 +24,10 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/collections" element={<Collections />} />
-              {/* Fallback routes for compatibility with older .html link structures */}
               <Route path="/listing.html" element={<Navigate to="/collections" replace />} />
               <Route path="/index.html" element={<Navigate to="/" replace />} />
               <Route path="/product.html" element={<Navigate to="/product/boho-pendant-necklace" replace />} />
-              
               <Route path="/product/:productId" element={<ProductDetail />} />
-              {/* Fallback routing */}
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>
@@ -37,10 +35,11 @@ function App() {
           {/* Global Footer */}
           <Footer />
 
-          {/* Global Interactive Overlays */}
+          {/* Global Interactive Overlays & AI Stylist */}
           <CartDrawer />
           <SearchOverlay />
           <NavigationDrawer />
+          <AIConcierge />
         </div>
       </Router>
     </AppProvider>

@@ -1,15 +1,14 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../context/AppContext';
-import { products } from '../data/products';
 
 export const SearchOverlay = () => {
-  const { searchOpen, toggleSearch } = useContext(AppContext);
-  const [query, setQuery] = useState("");
+  const { searchOpen, toggleSearch, products } = useContext(AppContext);
+  const [query, setQuery] = useState('');
   const navigate = useNavigate();
 
   const handleClose = () => {
-    setQuery("");
+    setQuery('');
     toggleSearch();
   };
 
@@ -32,36 +31,43 @@ export const SearchOverlay = () => {
     navigate(`/product/${productId}`);
   };
 
-  // Filter matching products
   const matchingProducts = query.trim()
-    ? products.filter(p => 
-        p.name.toLowerCase().includes(query.toLowerCase()) || 
-        p.category.toLowerCase().includes(query.toLowerCase()) ||
-        p.description.toLowerCase().includes(query.toLowerCase())
-      ).slice(0, 5)
+    ? products
+        .filter((p) => {
+          const q = query.toLowerCase();
+          return (
+            (p.name || '').toLowerCase().includes(q) ||
+            (p.category || '').toLowerCase().includes(q) ||
+            (p.description || '').toLowerCase().includes(q) ||
+            (p.tag || '').toLowerCase().includes(q)
+          );
+        })
+        .slice(0, 6)
     : [];
 
   return (
-    <div 
-      className={`fixed inset-0 bg-surface/98 z-[90] flex-col p-6 transition-all duration-300 ${
+    <div
+      className={`fixed inset-0 bg-surface/98 z-[90] flex-col p-6 transition-opacity duration-200 ${
         searchOpen ? 'opacity-100 visible flex' : 'opacity-0 invisible pointer-events-none'
       }`}
     >
-      <div className="flex justify-between items-center mb-12">
-        <span className="font-display-lg text-headline-md text-primary tracking-widest">SEARCH</span>
-        <button 
-          className="material-symbols-outlined text-3xl hover:text-primary transition-colors" 
+      <div className="max-w-3xl mx-auto w-full flex justify-between items-center mb-10">
+        <span className="font-display text-xl font-bold text-primary tracking-widest">
+          SEARCH CATALOGUE
+        </span>
+        <button
+          className="material-symbols-outlined text-2xl hover:text-primary transition-colors"
           onClick={handleClose}
         >
           close
         </button>
       </div>
 
-      <div className="max-w-2xl mx-auto w-full flex-1">
+      <div className="max-w-3xl mx-auto w-full flex-1 overflow-y-auto">
         <form onSubmit={handleSearchSubmit}>
-          <input 
-            className="w-full bg-transparent border-b-2 border-outline py-4 text-2xl focus:outline-none focus:border-primary transition-colors font-display" 
-            placeholder="Search for collections, stones, or styles..." 
+          <input
+            className="w-full bg-transparent border-b-2 border-outline py-3 text-xl md:text-2xl focus:outline-none focus:border-primary transition-colors font-display"
+            placeholder="Search by piece, stone, metal, or occasion..."
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -69,17 +75,26 @@ export const SearchOverlay = () => {
           />
         </form>
 
-        {query.trim() === "" ? (
+        {query.trim() === '' ? (
           <div className="mt-8">
-            <p className="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mb-4">
+            <p className="font-label-md text-xs text-on-surface-variant uppercase tracking-widest mb-4">
               Popular Searches
             </p>
             <div className="flex flex-wrap gap-2">
-              {["Oxidized", "Gold Plated", "Boho", "Ring", "Jhumka", "Necklace"].map((term) => (
+              {[
+                'Oxidized',
+                'Solitaire',
+                'Kundan',
+                'Emerald',
+                'Jhumka',
+                'Rose Gold',
+                'Platinum',
+                'Daily Wear',
+              ].map((term) => (
                 <button
                   key={term}
                   onClick={() => handlePopularSearch(term)}
-                  className="px-4 py-2 bg-surface-container rounded-full text-sm cursor-pointer hover:bg-secondary-container transition-colors font-medium text-on-surface"
+                  className="px-4 py-2 bg-surface-container rounded-full text-xs cursor-pointer hover:bg-secondary-container transition-colors font-semibold text-on-surface"
                 >
                   {term}
                 </button>
@@ -88,32 +103,40 @@ export const SearchOverlay = () => {
           </div>
         ) : (
           <div className="mt-8">
-            <p className="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mb-4">
-              Matching Products
+            <p className="font-label-md text-xs text-on-surface-variant uppercase tracking-widest mb-4">
+              Matching Pieces ({matchingProducts.length})
             </p>
             {matchingProducts.length > 0 ? (
-              <div className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {matchingProducts.map((p) => (
-                  <div 
+                  <div
                     key={p.id}
                     onClick={() => handleProductClick(p.id)}
-                    className="flex gap-4 p-2 hover:bg-surface-container rounded-lg cursor-pointer transition-colors"
+                    className="flex gap-3.5 p-2.5 border border-outline-variant/40 hover:border-primary/50 bg-surface-container-low rounded-lg cursor-pointer transition-colors"
                   >
-                    <img 
-                      src={p.images[0]} 
+                    <img
+                      src={p.images?.[0]}
                       alt={p.name}
-                      className="w-12 h-16 object-cover rounded bg-surface-container"
+                      className="w-14 h-16 object-cover rounded bg-surface-container"
                     />
-                    <div className="flex flex-col justify-center">
-                      <p className="font-bold text-sm uppercase tracking-wider text-on-surface">{p.name}</p>
-                      <p className="text-xs text-on-surface-variant uppercase tracking-widest">{p.category}</p>
-                      <p className="text-sm font-semibold text-primary mt-1">₹{p.price.toLocaleString('en-IN')}</p>
+                    <div className="flex flex-col justify-center min-w-0">
+                      <p className="font-bold text-xs uppercase tracking-wider text-on-surface truncate">
+                        {p.name}
+                      </p>
+                      <p className="text-[11px] text-on-surface-variant uppercase tracking-widest">
+                        {p.category}
+                      </p>
+                      <p className="text-xs font-bold text-primary mt-1">
+                        ₹{Number(p.price || 0).toLocaleString('en-IN')}
+                      </p>
                     </div>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-on-surface-variant italic">No products matched your search term.</p>
+              <p className="text-on-surface-variant text-sm">
+                No pieces matched &ldquo;{query}&rdquo;.
+              </p>
             )}
           </div>
         )}

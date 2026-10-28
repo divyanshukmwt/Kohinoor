@@ -1,15 +1,13 @@
 """
-Database Models — Éclat Jewellery Platform
-All SQLAlchemy ORM models for PostgreSQL.
+Database Models — Kohinoor / Éclat Jewellery Platform
+Cross-compatible SQLAlchemy ORM models for both SQLite and PostgreSQL.
 """
 
 from sqlalchemy import (
     Column, String, Integer, Float, Boolean, Text,
-    DateTime, ForeignKey, Enum
+    DateTime, ForeignKey, JSON
 )
-from sqlalchemy.dialects.postgresql import ARRAY as PG_ARRAY, UUID
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import declarative_base, relationship
 from sqlalchemy.sql import func
 import enum
 import uuid
@@ -25,90 +23,105 @@ class Product(Base):
     __tablename__ = "products"
 
     # Identity
-    id              = Column(String, primary_key=True, default=lambda: f"prd_{uuid.uuid4().hex[:8]}")
-    slug            = Column(String, unique=True, nullable=False, index=True)
-    name            = Column(String, nullable=False)
-    description     = Column(Text)
+    id                = Column(String, primary_key=True, default=lambda: f"prd_{uuid.uuid4().hex[:8]}")
+    slug              = Column(String, unique=True, nullable=False, index=True)
+    name              = Column(String, nullable=False)
+    description       = Column(Text)
     short_description = Column(Text)
 
     # Pricing
-    price           = Column(Float, nullable=False)
-    original_price  = Column(Float, nullable=True)
-    discount        = Column(Float, nullable=True)
-    stock           = Column(Integer, default=0)
+    price             = Column(Float, nullable=False)
+    original_price    = Column(Float, nullable=True)
+    discount          = Column(Float, nullable=True)
+    stock             = Column(Integer, default=0)
 
-    # Ratings
-    rating          = Column(Float, default=0.0)
-    review_count    = Column(Integer, default=0)
+    # Ratings & Badge
+    rating            = Column(Float, default=0.0)
+    review_count      = Column(Integer, default=0)
+    tag               = Column(String, nullable=True)
 
-    # Media (ImageKit CDN URLs)
-    images          = Column(PG_ARRAY(String), default=[])
+    # Media
+    images            = Column(JSON, default=list)
 
     # Classification
-    category        = Column(String, index=True)
-    collection      = Column(String, nullable=True)
-    materials       = Column(PG_ARRAY(String), default=[])
-    gemstones       = Column(PG_ARRAY(String), default=[])
-    dimensions      = Column(String, nullable=True)
+    category          = Column(String, index=True)
+    collection        = Column(String, nullable=True)
+    materials         = Column(JSON, default=list)
+    material_details  = Column(JSON, default=list)
+    gemstones         = Column(JSON, default=list)
+    dimensions        = Column(String, nullable=True)
 
     # Targeting
-    gender          = Column(PG_ARRAY(String), default=[])
-    occasions       = Column(PG_ARRAY(String), default=[])
-    style_tags      = Column(PG_ARRAY(String), default=[])
-    tags            = Column(PG_ARRAY(String), default=[])
-    wear_type       = Column(String, nullable=True, index=True)
+    gender            = Column(JSON, default=list)
+    occasions         = Column(JSON, default=list)
+    style_tags        = Column(JSON, default=list)
+    tags              = Column(JSON, default=list)
+    wear_type         = Column(String, nullable=True, index=True)
 
-    # AI / Semantic
-    embedding_text  = Column(Text)  # Rich text used to generate Pinecone embedding
+    # AI / Knowledge Base Text
+    embedding_text    = Column(Text)
+
+    # Care, Shipping & Reviews
+    care              = Column(Text, nullable=True)
+    shipping          = Column(Text, nullable=True)
+    reviews           = Column(JSON, default=list)
 
     # Relations
-    related_products = Column(PG_ARRAY(String), default=[])
-    complete_look    = Column(PG_ARRAY(String), default=[])
+    related_products  = Column(JSON, default=list)
+    complete_look     = Column(JSON, default=list)
 
     # Flags
-    featured        = Column(Boolean, default=False)
-    is_new          = Column(Boolean, default=False)
-    is_bestseller   = Column(Boolean, default=False)
+    featured          = Column(Boolean, default=False)
+    is_new            = Column(Boolean, default=False)
+    is_bestseller     = Column(Boolean, default=False)
 
     # Timestamps
-    created_at      = Column(DateTime(timezone=True), server_default=func.now())
-    updated_at      = Column(DateTime(timezone=True), onupdate=func.now())
+    created_at        = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at        = Column(DateTime(timezone=True), onupdate=func.now())
 
     # Relationships
-    cart_items      = relationship("CartItem", back_populates="product")
-    order_items     = relationship("OrderItem", back_populates="product")
+    cart_items        = relationship("CartItem", back_populates="product")
+    order_items       = relationship("OrderItem", back_populates="product")
 
     def to_dict(self):
+        # Provide both raw material tags (for filtering) and descriptive lines (for PDP)
+        mat_details = self.material_details or self.materials or []
         return {
-            "id":                self.id,
-            "slug":              self.slug,
-            "name":              self.name,
-            "description":       self.description,
-            "shortDescription":  self.short_description,
-            "price":             self.price,
-            "originalPrice":     self.original_price,
-            "discount":          self.discount,
-            "stock":             self.stock,
-            "rating":            self.rating,
-            "reviewCount":       self.review_count,
-            "images":            self.images or [],
-            "category":          self.category,
-            "collection":        self.collection,
-            "materials":         self.materials or [],
-            "gemstones":         self.gemstones or [],
-            "dimensions":        self.dimensions,
-            "gender":            self.gender or [],
-            "occasions":         self.occasions or [],
-            "styleTags":         self.style_tags or [],
-            "tags":              self.tags or [],
-            "wearType":          self.wear_type,
-            "embeddingText":     self.embedding_text,
-            "relatedProducts":   self.related_products or [],
-            "completeLook":      self.complete_look or [],
-            "featured":          self.featured,
-            "isNew":             self.is_new,
-            "isBestseller":      self.is_bestseller,
-            "createdAt":         self.created_at.isoformat() if self.created_at else None,
+            "id":               self.id,
+            "slug":             self.slug,
+            "name":             self.name,
+            "description":      self.description,
+            "shortDescription": self.short_description,
+            "price":            self.price,
+            "originalPrice":    self.original_price,
+            "discount":         self.discount,
+            "stock":            self.stock,
+            "rating":           self.rating,
+            "reviewCount":      self.review_count,
+            "reviewsCount":     self.review_count,
+            "tag":              self.tag,
+            "images":           self.images or [],
+            "category":         self.category,
+            "collection":       self.collection,
+            "materials":        mat_details,
+            "materialTags":     self.materials or [],
+            "gemstones":        self.gemstones or [],
+            "dimensions":       self.dimensions,
+            "gender":           self.gender or [],
+            "occasions":        self.occasions or [],
+            "styleTags":        self.style_tags or [],
+            "tags":             self.tags or [],
+            "wearType":         self.wear_type,
+            "embeddingText":    self.embedding_text,
+            "care":             self.care or "Wipe gently with a soft dry microfiber cloth after use. Store in a dry pouch.",
+            "shipping":         self.shipping or "Complimentary insured delivery within 3-5 business days. 15-day hassle-free returns.",
+            "reviews":          self.reviews or [],
+            "relatedProducts":  self.related_products or [],
+            "completeLook":     self.complete_look or [],
+            "featured":         self.featured,
+            "isNew":            self.is_new,
+            "isBestseller":     self.is_bestseller,
+            "createdAt":        self.created_at.isoformat() if self.created_at else None,
         }
 
 
@@ -128,10 +141,10 @@ class Cart(Base):
 
     def to_dict(self):
         return {
-            "id":         self.id,
-            "sessionId":  self.session_id,
-            "items":      [item.to_dict() for item in self.items],
-            "updatedAt":  self.updated_at.isoformat() if self.updated_at else None,
+            "id":        self.id,
+            "sessionId": self.session_id,
+            "items":     [item.to_dict() for item in self.items],
+            "updatedAt": self.updated_at.isoformat() if self.updated_at else None,
         }
 
 
@@ -174,26 +187,26 @@ class OrderStatus(str, enum.Enum):
 class Order(Base):
     __tablename__ = "orders"
 
-    id              = Column(String, primary_key=True, default=lambda: f"ord_{uuid.uuid4().hex[:10]}")
-    session_id      = Column(String, nullable=False, index=True)
-    status          = Column(String, default=OrderStatus.pending)
+    id               = Column(String, primary_key=True, default=lambda: f"ord_{uuid.uuid4().hex[:10]}")
+    session_id       = Column(String, nullable=False, index=True)
+    status           = Column(String, default=OrderStatus.confirmed.value)
 
     # Pricing
-    subtotal        = Column(Float, nullable=False)
-    shipping        = Column(Float, default=0)
-    total           = Column(Float, nullable=False)
+    subtotal         = Column(Float, nullable=False)
+    shipping         = Column(Float, default=0)
+    total            = Column(Float, nullable=False)
 
     # Customer info
-    customer_name   = Column(String, nullable=True)
-    customer_email  = Column(String, nullable=True)
+    customer_name    = Column(String, nullable=True)
+    customer_email   = Column(String, nullable=True)
     shipping_address = Column(Text, nullable=True)
 
     # Metadata
-    notes           = Column(Text, nullable=True)
-    created_at      = Column(DateTime(timezone=True), server_default=func.now())
-    updated_at      = Column(DateTime(timezone=True), onupdate=func.now())
+    notes            = Column(Text, nullable=True)
+    created_at       = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at       = Column(DateTime(timezone=True), onupdate=func.now())
 
-    items           = relationship("OrderItem", back_populates="order", cascade="all, delete-orphan")
+    items            = relationship("OrderItem", back_populates="order", cascade="all, delete-orphan")
 
     def to_dict(self):
         return {
@@ -219,7 +232,7 @@ class OrderItem(Base):
     order_id    = Column(String, ForeignKey("orders.id", ondelete="CASCADE"), nullable=False)
     product_id  = Column(String, ForeignKey("products.id"), nullable=False)
     quantity    = Column(Integer, default=1)
-    unit_price  = Column(Float, nullable=False)  # Snapshot at time of order
+    unit_price  = Column(Float, nullable=False)
 
     order       = relationship("Order", back_populates="items")
     product     = relationship("Product", back_populates="order_items")

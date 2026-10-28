@@ -1,26 +1,19 @@
-# Éclat Platform — Backend Dependencies
+# Kohinoor / Éclat Platform — Backend Dependencies
 
 fastapi==0.115.5
 uvicorn[standard]==0.32.1
 python-multipart==0.0.12
 
-# Database
+# Database (SQLite built-in + optional PostgreSQL)
 sqlalchemy==2.0.36
-psycopg2-binary==2.9.10
 alembic==1.14.0
 
 # Environment
 python-dotenv==1.0.1
 
-# AI
-google-generativeai==0.8.3
-
-# Vector DB
-pinecone==5.4.2
-
 # Validation
 pydantic==2.10.3
 email-validator==2.2.0
 
-# HTTP
+# HTTP / Gemini REST Client
 httpx==0.28.1

@@ -1,6 +1,7 @@
 """
-Chatbot Routes — Éclat Platform
-Recommendation pipeline, semantic search proxy, conversational AI.
+Chatbot Routes — Kohinoor / Éclat Platform
+Guided + Conversational Question Refinement & Knowledge Base Retrieval (Pinecone-free).
+Supports dynamic Gemini model and API key selection per request.
 """
 
 from fastapi import APIRouter, Depends, Header
@@ -10,8 +11,12 @@ from typing import Optional, List
 
 from app.database.connection import get_db
 from app.recommendation.recommendation_engine import run_recommendation_pipeline
-from app.chatbot.gemini_service import generate_conversational_response
-from app.chatbot.pinecone_service import upsert_product, delete_product, bulk_upsert_products
+from app.chatbot.gemini_service import (
+    generate_conversational_response,
+    AVAILABLE_GEMINI_MODELS,
+    resolve_model,
+    resolve_api_key,
+)
 from app.chatbot.memory import save_session, get_session, is_session_complete, clear_session
 
 router = APIRouter(prefix="/chatbot", tags=["Chatbot"])
@@ -28,35 +33,31 @@ class RecommendRequest(BaseModel):
     wearType:  Optional[str] = ""
     style:     Optional[str] = ""
     budget:    Optional[str] = None
-    query:     Optional[str] = ""  # Optional free-text refinement
+    query:     Optional[str] = ""
+    apiKey:    Optional[str] = None
+    model:     Optional[str] = None
+    topK:      Optional[int] = 6
+
 
 class ConversationMessage(BaseModel):
     role:    str  # "user" | "assistant"
     content: str
 
+
 class ConversationRequest(BaseModel):
     messages: List[ConversationMessage]
     context:  Optional[str] = None
+    apiKey:   Optional[str] = None
+    model:    Optional[str] = None
+
 
 class SemanticSearchRequest(BaseModel):
     query:   str
     filters: Optional[dict] = {}
     topK:    Optional[int]  = 6
+    apiKey:  Optional[str]  = None
+    model:   Optional[str]  = None
 
-class IndexProductRequest(BaseModel):
-    id:            str
-    embeddingText: str
-    category:      str
-    materials:     List[str] = []
-    occasions:     List[str] = []
-    styleTags:     List[str] = []
-    wearType:      str = ""
-    gender:        List[str] = []
-    price:         float = 0
-    featured:      bool = False
-
-class BulkIndexRequest(BaseModel):
-    products: List[dict]
 
 class StepRequest(BaseModel):
     session_id: str
@@ -65,14 +66,35 @@ class StepRequest(BaseModel):
 
 
 # ─────────────────────────────────────────────
-# RECOMMENDATION PIPELINE
+# DYNAMIC MODELS & CONFIG
+# ─────────────────────────────────────────────
+
+@router.get("/models")
+def get_available_models():
+    """Return active Gemini model configured in .env."""
+    return {
+        "success": True,
+        "models": AVAILABLE_GEMINI_MODELS,
+        "defaultModel": resolve_model(),
+        "hasServerApiKey": bool(resolve_api_key()),
+    }
+
+
+# ─────────────────────────────────────────────
+# RECOMMENDATION & RETRIEVAL PIPELINE
 # ─────────────────────────────────────────────
 
 @router.post("/recommend")
-def recommend(body: RecommendRequest, db: Session = Depends(get_db)):
+def recommend(
+    body: RecommendRequest,
+    x_gemini_api_key: Optional[str] = Header(None, alias="X-Gemini-API-Key"),
+    x_gemini_model: Optional[str] = Header(None, alias="X-Gemini-Model"),
+    db: Session = Depends(get_db),
+):
     """
-    Main recommendation endpoint.
-    Flow: Gemini → Pinecone → PostgreSQL
+    Main AI Stylist endpoint.
+    Refines the user's guided selections and/or question using the chosen Gemini model,
+    then filters and retrieves matching jewellery from the Knowledge Base.
     """
     selections = {
         "purpose":  body.purpose,
@@ -82,38 +104,41 @@ def recommend(body: RecommendRequest, db: Session = Depends(get_db)):
         "style":    body.style,
         "budget":   body.budget,
     }
-    return run_recommendation_pipeline(db, selections, body.query or "")
+    effective_key = body.apiKey or x_gemini_api_key
+    effective_model = body.model or x_gemini_model
+
+    return run_recommendation_pipeline(
+        db=db,
+        selections=selections,
+        conversational_query=body.query or "",
+        top_k=body.topK or 6,
+        api_key=effective_key,
+        model=effective_model,
+    )
 
 
 @router.post("/semantic-search")
-def semantic_search_endpoint(body: SemanticSearchRequest, db: Session = Depends(get_db)):
-    """
-    Raw semantic search endpoint.
-    Called from frontend Next.js API route to keep Pinecone key server-side.
-    Returns product IDs from Pinecone + hydrated products from PostgreSQL.
-    """
-    from app.chatbot.pinecone_service import semantic_search
-    from app.products.product_service import get_products_by_ids
-
-    filters = body.filters or {}
-    product_ids = semantic_search(
-        query_text= body.query,
-        materials=  filters.get("materials"),
-        occasions=  filters.get("occasions"),
-        style_tags= filters.get("styleTags"),
-        wear_type=  filters.get("wearType"),
-        gender=     filters.get("gender"),
-        min_price=  filters.get("minPrice"),
-        max_price=  filters.get("maxPrice"),
-        top_k=      body.topK or 6,
+def semantic_search_endpoint(
+    body: SemanticSearchRequest,
+    x_gemini_api_key: Optional[str] = Header(None, alias="X-Gemini-API-Key"),
+    x_gemini_model: Optional[str] = Header(None, alias="X-Gemini-Model"),
+    db: Session = Depends(get_db),
+):
+    """Knowledge Base search endpoint (Pinecone-free)."""
+    result = run_recommendation_pipeline(
+        db=db,
+        selections=body.filters or {},
+        conversational_query=body.query or "",
+        top_k=body.topK or 6,
+        api_key=body.apiKey or x_gemini_api_key,
+        model=body.model or x_gemini_model,
     )
-
-    products = get_products_by_ids(db, product_ids) if product_ids else []
-
     return {
-        "success":    True,
-        "productIds": product_ids,
-        "products":   [p.to_dict() for p in products],
+        "success":         True,
+        "productIds":      [p["id"] for p in result.get("products", [])],
+        "products":        result.get("products", []),
+        "refinedQuestion": result.get("refinedQuestion"),
+        "modelUsed":       result.get("modelUsed"),
     }
 
 
@@ -122,59 +147,64 @@ def semantic_search_endpoint(body: SemanticSearchRequest, db: Session = Depends(
 # ─────────────────────────────────────────────
 
 @router.post("/conversation")
-def conversation(body: ConversationRequest):
-    """Generate an Éclat persona response from conversation history."""
+def conversation(
+    body: ConversationRequest,
+    x_gemini_api_key: Optional[str] = Header(None, alias="X-Gemini-API-Key"),
+    x_gemini_model: Optional[str] = Header(None, alias="X-Gemini-Model"),
+):
+    """Generate a concise concierge response using the chosen Gemini model."""
     history = [{"role": m.role, "content": m.content} for m in body.messages]
-    response = generate_conversational_response(history, body.context)
-    return {"success": True, "message": response}
+    result = generate_conversational_response(
+        conversation_history=history,
+        system_context=body.context,
+        api_key=body.apiKey or x_gemini_api_key,
+        model=body.model or x_gemini_model,
+    )
+    return {
+        "success":   True,
+        "message":   result["message"],
+        "modelUsed": result["modelUsed"],
+        "aiActive":  result["aiActive"],
+    }
 
 
 # ─────────────────────────────────────────────
-# FLOW (step-by-step session)
+# GUIDED FLOW DEFINITIONS (3 Essential Questions)
 # ─────────────────────────────────────────────
 
-STEP_ORDER = ["purpose", "gender", "material", "wearType", "style", "budget"]
+STEP_ORDER = ["wearType", "material", "budget"]
 
 FLOW_QUESTIONS = {
-    "purpose":  {"question": "What is the occasion?", "options": [
-        {"value": "wedding", "label": "Wedding"},
-        {"value": "anniversary", "label": "Anniversary"},
-        {"value": "gifting", "label": "Gifting"},
-        {"value": "party", "label": "Party"},
-        {"value": "daily", "label": "Daily Wear"},
-    ]},
-    "gender":   {"question": "Who is it for?", "options": [
-        {"value": "female", "label": "Women"},
-        {"value": "male",   "label": "Men"},
-        {"value": "unisex", "label": "Unisex"},
-    ]},
-    "material": {"question": "What material?", "options": [
-        {"value": "gold",     "label": "Gold"},
-        {"value": "silver",   "label": "Silver"},
-        {"value": "platinum", "label": "Platinum"},
-        {"value": "diamond",  "label": "Diamond"},
-        {"value": "rose gold","label": "Rose Gold"},
-    ]},
-    "wearType": {"question": "What type of piece?", "options": [
-        {"value": "neck",  "label": "Necklace"},
-        {"value": "ears",  "label": "Earrings"},
-        {"value": "rings", "label": "Ring"},
-        {"value": "hands", "label": "Bracelet"},
-        {"value": "foot",  "label": "Anklet"},
-    ]},
-    "style":    {"question": "What aesthetic?", "options": [
-        {"value": "elegant",      "label": "Elegant"},
-        {"value": "minimal",      "label": "Minimal"},
-        {"value": "bold",         "label": "Bold"},
-        {"value": "traditional",  "label": "Traditional"},
-        {"value": "contemporary", "label": "Contemporary"},
-    ]},
-    "budget":   {"question": "What is your budget?", "options": [
-        {"value": "under_5k",  "label": "Under ₹5,000"},
-        {"value": "5k_20k",    "label": "₹5,000 – ₹20,000"},
-        {"value": "20k_50k",   "label": "₹20,000 – ₹50,000"},
-        {"value": "above_50k", "label": "Above ₹50,000"},
-    ]},
+    "wearType": {
+        "question": "What piece are you looking for?",
+        "options": [
+            {"value": "neck",  "label": "Necklaces & Pendants"},
+            {"value": "ears",  "label": "Earrings & Jhumkas"},
+            {"value": "rings", "label": "Rings & Bands"},
+            {"value": "hands", "label": "Bracelets & Bangles"},
+            {"value": "foot",  "label": "Anklets"},
+        ],
+    },
+    "material": {
+        "question": "Preferred metal or stone?",
+        "options": [
+            {"value": "gold",            "label": "Gold / 18K Vermeil"},
+            {"value": "oxidized silver", "label": "Oxidized & 925 Silver"},
+            {"value": "rose gold",       "label": "Rose Gold"},
+            {"value": "diamond",         "label": "Diamond & Polki"},
+            {"value": "pearl",           "label": "Pearl & Kundan"},
+            {"value": "platinum",        "label": "Platinum"},
+        ],
+    },
+    "budget": {
+        "question": "What is your budget range?",
+        "options": [
+            {"value": "under_2k",  "label": "Under ₹2,000"},
+            {"value": "under_5k",  "label": "Under ₹5,000"},
+            {"value": "5k_20k",    "label": "₹5,000 – ₹20,000"},
+            {"value": "above_20k", "label": "Above ₹20,000"},
+        ],
+    },
 }
 
 
@@ -198,38 +228,9 @@ def chatbot_step(data: StepRequest):
     if next_index < len(STEP_ORDER):
         next_step = STEP_ORDER[next_index]
         return {
-            "success":  True,
-            "step":     next_step,
+            "success": True,
+            "step":    next_step,
             **FLOW_QUESTIONS[next_step],
         }
 
-    return {"success": True, "step": "complete", "message": "All steps complete. Call /chatbot/recommend-from-session."}
-
-
-@router.post("/recommend-from-session")
-def recommend_from_session(session_id: str, db: Session = Depends(get_db)):
-    if not is_session_complete(session_id):
-        return {"success": False, "message": "Session incomplete"}
-    session = get_session(session_id)
-    result  = run_recommendation_pipeline(db, session)
-    clear_session(session_id)
-    return result
-
-
-# ─────────────────────────────────────────────
-# PINECONE INDEX MANAGEMENT
-# ─────────────────────────────────────────────
-
-@router.post("/index-product")
-def index_product(body: IndexProductRequest):
-    return upsert_product(body.dict())
-
-
-@router.post("/index-products-bulk")
-def index_products_bulk(body: BulkIndexRequest):
-    return bulk_upsert_products(body.products)
-
-
-@router.delete("/index-product/{product_id}")
-def remove_product_index(product_id: str):
-    return delete_product(product_id)
+    return {"success": True, "step": "complete", "message": "All steps complete."}
